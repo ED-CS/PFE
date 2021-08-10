@@ -1,0 +1,102 @@
+{% extends "layout.html" %}
+{% block content1 %}
+  <div class="wrapper" >
+    <!--page header-->
+    <!-- quick audio tagging section-->
+    <div class="page-header">
+      <!-- Full Page Intro -->
+      <div class="view shadow p-3 mb-5 bg-body" style="background-image: url('static/assets/img/pages/ed2.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+        <!-- Mask & flexbox options-->
+        <div class="mask rgba-gradient d-flex justify-content-center align-items-center">
+          <!-- Content -->
+          <div class="container-fluid">
+            <!--Grid row-->
+            <div class="row justify-content-around">
+              <!--Grid column-->
+              <div class="col-8 white-text mt-8 mb-0" data-wow-delay="0.3s">
+                <h1 class="display-1 text-white text-center">Semi Supervised Learning
+                  <span class="text-white">Multi-Label Audio Tagging</span> 
+                </h1>
+                <p class="lead text-white text-center">Audio Taggin System. It's Free and Open Source.</p>    
+                  <!-- quick test button section -->         
+                <div class="btn-wrapper mt-5 text-center">
+                  <button type="button" class="btn btn-lg btn-white btn-icon mb-3 mb-sm-0" data-toggle="modal" data-target="#modal-form">Quick Test</button>
+                  <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                      <div class="modal-content">
+                        <div class="modal-body p-0">
+                          <div class="card bg-secondary shadow border-0 mb-0">      
+                            <div class="card-body px-lg-5 py-lg-5">
+                              <div class="text-center text-muted mb-4">
+                                <small>Chose you'r file location.</small>
+                              </div>
+                              <form role="form">                                   
+                                <div class="input-group mb-3">
+                                  <input type="file" class="form-control" id="inputGroupFile02">
+                                  <label class="input-group-text" for="inputGroupFile02">Upload</label>
+                                </div>                           
+                                <div class="text-center">
+                                  <button type="submit" class="btn btn-outline-secondary btn-round"><i class="ni ni-tag">  GET TAGS</i></button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>           
+                <!-- end quick test button section -->
+              </div>       
+            </div>
+            <!--Grid row-->
+            <!-- logo -->            
+            <div class="mt-8">
+              <small class="font-weight-bold mb-0 mr-2 text-white">Logo AA</small>                 
+            </div>          
+            <!-- end logo -->
+          </div>
+          <!-- Content -->
+        </div>
+        <!-- Mask & flexbox options-->
+      </div>
+      <!-- end Full Page Intro -->
+    </div>
+    <!-- end quick audio tagging section-->
+    <!-- end page header -->
+    <div class="section" style="background-image: url('static/assets/img/pages/ed7.jpg');  background-repeat: no-repeat; background-size: cover; background-position: center center;">
+      <div class="row justify-content-around">
+        <div class="col-lg-5 mb-5 mb-lg-0 text-center">
+          <h1 class="font-weight-light">Bootstrap carousel</h1>
+          <p class="lead mt-4">Argon Design System comes with four pre-built pages to help you get started faster. You can change the text and images and you're good to go.</p>
+          <a href="https://demos.creative-tim.com/argon-design-system/docs/components/carousel.html" class="btn btn-white mt-4">See all components</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content1 %}
+
+{% block content2 %}
+  <div class="container container-lg">
+    <div class="row">
+    <!-- Overviwe page -->
+      <div class="col-md-6 mb-5 mb-md-0">
+        <div class="card card-lift--hover shadow border-0">
+          <a href="Overviwe.html" title="Overviwe of audio tagging system">
+            <img src="{{url_for('static', filename='/assets/img/theme/landing.jpg')}}" class="card-img">
+          </a>
+        </div>
+      </div>
+    <!-- end Overviwe page -->
+    <!-- test system page -->
+      <div class="col-md-6 mb-5 mb-lg-0">
+        <div class="card card-lift--hover shadow border-0">
+          <a href="get_taggs.html" title="Use System">
+            <img src="{{url_for('static', filename='assets/img/theme/profile.jpg')}}" class="card-img">
+          </a>
+        </div>
+      </div>
+      <!-- end test system page -->
+    </div>
+  </div>
+{% endblock content2 %}
