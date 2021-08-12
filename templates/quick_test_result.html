@@ -1,174 +1,86 @@
-{% block content1 %} {% endblock content1 %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
-  <title>
-    AUDIO TAGGING SYSTEM - Quick Test Result
-  </title>
-  <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-  <!-- Nucleo Icons -->
-  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
-  <!-- Font Awesome Icons -->
-  <link href="../assets/css/font-awesome.css" rel="stylesheet" />
-  <!-- CSS Files -->
-  <link href="../assets/css/argon-design-system.css?v=1.2.2" rel="stylesheet" />
-</head>
+{% extends "layout.html" %}
 
-<body class="offline-doc">
-  <!-- Navbar -->
-  <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-light bg-white position-sticky top-0 shadow py-2">
-    <div class="container">
-      <!-- logo AA-->
-      <a class="navbar-brand mr-lg-5" href="../index.html">
-        <img src="../assets/img/pages/logo3.png">
-        <span calss="lead">Soft</span>
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="navbar-collapse collapse" id="navbar_global">
-        <div class="navbar-collapse-header">
-          <div class="row">
-            <!-- logo AA-->
-            <div class="col-6 collapse-brand">
-              <a href="../../index.html">
-                <img src="../assets/img/pages/logo3.png">
-                <span calss="lead">Soft</span>
-              </a>
-            </div>
-            <div class="col-6 collapse-close">
-              <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
-                <span></span>
-                <span></span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <!-- liste of models-->
-        <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
-          <li class="nav-item dropdown">
-            <a href="#" class="nav-link" data-toggle="dropdown" href="#" role="button">
-              <i class="ni ni-ui-04 d-lg-none"></i>
-              <span class="nav-link-inner--text">Models</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-xl">
-              <div class="dropdown-menu-inner">
-                <a href="model1.html" class="media d-flex align-items-center">
-                  <div class="icon icon-shape bg-gradient-primary rounded-circle text-white">
-                    <i class="ni ni-spaceship"></i>
+{% block wrapper %}
+  <div class="wrapper">
+    <section class="page-header">
+      <!-- Circles background -->
+      <img class="bg-image" src="{{url_for('static', filename='assets/img/pages/ed2.jpg')}}" style="width: 100%;">
+    </section>
+    <section class="section bg-secondary">
+      <div class="container mt-9">
+        <div class="card card-profile shadow mt--300">
+          <div class="px-4">
+            <div class="text-center mt-5">
+              <div class="content-center text-center">
+                <div class="col-md-8 ml-auto mr-auto">
+                  <div class="brand">
+                    <h1 class="title">
+                      List Of Tags
+                    </h1>
+                    <h3 class="description">path of audio file: {{ file_path }}</h3>
+                    <h3 class="description">result section</h3>
                   </div>
-                  <div class="media-body ml-3">
-                    <h6 class="heading text-primary mb-md-1">Model 1</h6>
-                    <p class="description d-none d-md-inline-block mb-0">Supervised Learning, It made from onley curated data.</p>
-                  </div>
-                </a>
-                <a href="model2.html" class="media d-flex align-items-center">
-                  <div class="icon icon-shape bg-gradient-success rounded-circle text-white">
-                    <i class="ni ni-palette"></i>
-                  </div>
-                  <div class="media-body ml-3">
-                    <h6 class="heading text-primary mb-md-1">Model 2</h6>
-                    <p class="description d-none d-md-inline-block mb-0">Unsupervised Learning, It made from onley noisy data.</p>
-                  </div>
-                </a>
-                <a href="model3.html" class="media d-flex align-items-center">
-                  <div class="icon icon-shape bg-gradient-warning rounded-circle text-white">
-                    <i class="ni ni-ui-04"></i>
-                  </div>
-                  <div class="media-body ml-3">
-                    <h5 class="heading text-warning mb-md-1">Model 3</h6>
-                    <p class="description d-none d-md-inline-block mb-0">Semi Supervised Learning, It made from both curated and noisy data.</p>
-                  </div>
-                </a>
+                </div>
               </div>
             </div>
-          </li>
-        </ul>
-        <ul class="navbar-nav align-items-lg-center ml-lg-auto">
-          <li class="nav-item">
-            <a class="btn btn-outline-primary" href="./../index.html" >
-              <span class="nav-link-inner--text">Go Home</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <!-- End Navbar -->
-  <div class="page-header clear-filter">
-    <div class="page-header-image" style="background-image: url('../assets/img/denys.jpg');"></div>
-    <div class="content-center text-center">
-      <div class="col-md-8 ml-auto mr-auto">
-        <div class="brand">
-          <h1 class="title">
-            List Of Tags
-          </h1>
-          <h3 class="description">result section</h3>
-          <br />
-          <a href="https://demos.creative-tim.com/argon-design-system/docs/getting-started/overview.html" class="btn btn-primary btn-round btn-lg">test detail</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <footer class="footer">
-    <div class="container">
-      <div class="row row-grid align-items-center mb-5">
-        <div class="col-lg-6">
-          <h3 class="text-primary font-weight-light mb-2">Thank you for using our System!</h3>
-          <h4 class="mb-0 font-weight-light">Let's get information about AA comenity.</h4>
-        </div>
-        <div class="col-lg-6 text-lg-center btn-wrapper">
-          <button target="_blank" href="https://twitter.com/creativetim" rel="nofollow" class="btn btn-icon-only btn-twitter rounded-circle" data-toggle="tooltip" data-original-title="Follow us">
-            <span class="btn-inner--icon"><i class="fa fa-twitter"></i></span>
-          </button>
-          <button target="_blank" href="https://www.facebook.com/CreativeTim/" rel="nofollow" class="btn-icon-only rounded-circle btn btn-facebook" data-toggle="tooltip" data-original-title="Like us">
-            <span class="btn-inner--icon"><i class="fab fa-facebook"></i></span>
-          </button>
-          <button target="_blank" href="https://instagrame.com/creativetim" rel="nofollow" class="btn btn-icon-only btn-instagram rounded-circle" data-toggle="tooltip" data-original-title="Follow us">
-            <span class="btn-inner--icon"><i class="fa fa-instagram"></i></span>
-          </button>
-          <button target="_blank" href="https://github.com/creativetimofficial" rel="nofollow" class="btn btn-icon-only btn-github rounded-circle" data-toggle="tooltip" data-original-title="Star on Github">
-            <span class="btn-inner--icon"><i class="fa fa-github"></i></span>
-          </button>
-        </div>
-      </div>
-      <hr>
-      <div class="row align-items-center justify-content-md-between">
-        <div class="col-md-6">
-          <div class="copyright">
-            &copy; 2021 <a href="" target="_blank">Creative Tim</a>.
+            <div class="mt-5 py-5 border-top text-center">
+              <div class="row justify-content-center">
+                <div class="col-lg-9">
+                  <p>advencet test, to get more about test result consult "test detail" you most be authantificat to see more detail about tags and categories .</p>
+                  <a href="url_for('test_detail', file_path={{ file_path }})" class="btn btn-primary btn-round btn-lg">Get Detail</a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <ul class="nav nav-footer justify-content-end">
-            <li class="nav-item">
-              <a href="" class="nav-link" target="_blank">Creative Tim</a>
-            </li>
-            <li class="nav-item">
-              <a href="" class="nav-link" target="_blank">About Us</a>
-            </li>
-            <li class="nav-item">
-              <a href="" class="nav-link" target="_blank">Blog</a>
-            </li>
-            <li class="nav-item">
-              <a href="" class="nav-link" target="_blank">License</a>
-            </li>
-          </ul>
-        </div>
       </div>
-    </div>
-  </footer>
-  <!--   Core JS Files   -->
-  <script src="../assets/js/core/jquery.min.js" type="text/javascript"></script>
-  <script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
-  <script src="../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-</body>
-
-</html>
+    </section>
+    <footer class="footer">
+      <!-- end tow main pages -->
+      <!-- contact section -->
+      <div class="container">
+          <div class="row row-grid align-items-center my-md">
+              <div class="col-lg-6">
+                  <h3 class="text-primary font-weight-light mb-2">Thank you .....</h3>
+                  </div>
+                      <div class="col-lg-6 text-lg-center btn-wrapper">
+                      <button target="_blank" href="https://twitter.com/creativetim" rel="nofollow" class="btn btn-icon-only btn-twitter rounded-circle" data-toggle="tooltip" data-original-title="Follow us">
+                          <span class="btn-inner--icon"><i class="fa fa-twitter"></i></span>
+                      </button>
+                      <button target="_blank" href="https://www.facebook.com/CreativeTim/" rel="nofollow" class="btn-icon-only rounded-circle btn btn-facebook" data-toggle="tooltip" data-original-title="Like us">
+                          <span class="btn-inner--icon"><i class="fab fa-facebook"></i></span>
+                      </button>
+                      <button target="_blank" href="https://instagrame.com/creativetim" rel="nofollow" class="btn btn-icon-only btn-instagram rounded-circle" data-toggle="tooltip" data-original-title="Follow us">
+                          <span class="btn-inner--icon"><i class="fa fa-instagram"></i></span>
+                      </button>
+                      <button target="_blank" href="https://github.com/creativetimofficial" rel="nofollow" class="btn btn-icon-only btn-github rounded-circle" data-toggle="tooltip" data-original-title="Star on Github">
+                          <span class="btn-inner--icon"><i class="fa fa-github"></i></span>
+                      </button>
+                  </div>
+              </div>
+          <hr>
+          <div class="row align-items-center justify-content-md-between">
+              <div class="col-md-6">
+                  <div class="copyright">
+                      &copy; 2021 <a href="" target="_blank">Creative Tim</a>.
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <ul class="nav nav-footer justify-content-end">
+                      <li class="nav-item">
+                      <a href="" class="nav-link" target="_blank">About Us</a>
+                      </li>
+                      <li class="nav-item">
+                      <a href="" class="nav-link" target="_blank">Blog</a>
+                      </li>
+                      <li class="nav-item">
+                      <a href="" class="nav-link" target="_blank">License</a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+      <!-- end contact section -->
+    </footer>
+  </div>
+{% endblock wrapper %}

@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block content1 %}
+{% block wrapper %}
   <div class="wrapper" >
     <!--page header-->
     <!-- quick audio tagging section-->
@@ -30,13 +30,17 @@
                               <div class="text-center text-muted mb-4">
                                 <small>Chose you'r file location.</small>
                               </div>
-                              <form role="form">                                   
+                              <form method="POST" action="" enctype="multipart/form-data">
+                                {{ form.hidden_tag() }}                                   
                                 <div class="input-group mb-3">
-                                  <input type="file" class="form-control" id="inputGroupFile02">
-                                  <label class="input-group-text" for="inputGroupFile02">Upload</label>
+                                  <!--<input type="file" class="form-control" id="inputGroupFile02">-->
+                                  <!--<label class="input-group-text" for="inputGroupFile02">Upload</label>-->
+                                  {{ form.audio.label(class="input-group-text")}}
+                                  {{ form.audio(class="form-control")}}
                                 </div>                           
                                 <div class="text-center">
-                                  <button type="submit" class="btn btn-outline-secondary btn-round"><i class="ni ni-tag">  GET TAGS</i></button>
+                                  <!--<button type="submit" class="btn btn-outline-secondary btn-round"><i class="ni ni-tag">  GET TAGS</i></button>-->
+                                  {{ form.submit(class="btn btn-outline-secondary btn-round") }}
                                 </div>
                               </form>
                             </div>
@@ -73,30 +77,74 @@
         </div>
       </div>
     </div>
-  </div>
-{% endblock content1 %}
-
-{% block content2 %}
-  <div class="container container-lg">
-    <div class="row">
-    <!-- Overviwe page -->
-      <div class="col-md-6 mb-5 mb-md-0">
-        <div class="card card-lift--hover shadow border-0">
-          <a href="Overviwe.html" title="Overviwe of audio tagging system">
-            <img src="{{url_for('static', filename='/assets/img/theme/landing.jpg')}}" class="card-img">
-          </a>
+    <footer class="footer has-cards">
+      <div class="container container-lg">
+          <div class="row">
+          <!-- Overviwe page -->
+            <div class="col-md-6 mb-5 mb-md-0">
+              <div class="card card-lift--hover shadow border-0">
+                <a href="Overviwe.html" title="Overviwe of audio tagging system">
+                  <img src="{{url_for('static', filename='/assets/img/theme/landing.jpg')}}" class="card-img">
+                </a>
+              </div>
+            </div>
+          <!-- end Overviwe page -->
+          <!-- test system page -->
+            <div class="col-md-6 mb-5 mb-lg-0">
+              <div class="card card-lift--hover shadow border-0">
+                <a href="get_taggs.html" title="Use System">
+                  <img src="{{url_for('static', filename='assets/img/theme/profile.jpg')}}" class="card-img">
+                </a>
+              </div>
+            </div>
+            <!-- end test system page -->
+          </div>
         </div>
+      <!-- end tow main pages -->
+      <!-- contact section -->
+      <div class="container">
+          <div class="row row-grid align-items-center my-md">
+              <div class="col-lg-6">
+                  <h3 class="text-primary font-weight-light mb-2">Thank you .....</h3>
+                  </div>
+                      <div class="col-lg-6 text-lg-center btn-wrapper">
+                      <button target="_blank" href="https://twitter.com/creativetim" rel="nofollow" class="btn btn-icon-only btn-twitter rounded-circle" data-toggle="tooltip" data-original-title="Follow us">
+                          <span class="btn-inner--icon"><i class="fa fa-twitter"></i></span>
+                      </button>
+                      <button target="_blank" href="https://www.facebook.com/CreativeTim/" rel="nofollow" class="btn-icon-only rounded-circle btn btn-facebook" data-toggle="tooltip" data-original-title="Like us">
+                          <span class="btn-inner--icon"><i class="fab fa-facebook"></i></span>
+                      </button>
+                      <button target="_blank" href="https://instagrame.com/creativetim" rel="nofollow" class="btn btn-icon-only btn-instagram rounded-circle" data-toggle="tooltip" data-original-title="Follow us">
+                          <span class="btn-inner--icon"><i class="fa fa-instagram"></i></span>
+                      </button>
+                      <button target="_blank" href="https://github.com/creativetimofficial" rel="nofollow" class="btn btn-icon-only btn-github rounded-circle" data-toggle="tooltip" data-original-title="Star on Github">
+                          <span class="btn-inner--icon"><i class="fa fa-github"></i></span>
+                      </button>
+                  </div>
+              </div>
+          <hr>
+          <div class="row align-items-center justify-content-md-between">
+              <div class="col-md-6">
+                  <div class="copyright">
+                      &copy; 2021 <a href="" target="_blank">Creative Tim</a>.
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <ul class="nav nav-footer justify-content-end">
+                      <li class="nav-item">
+                      <a href="" class="nav-link" target="_blank">About Us</a>
+                      </li>
+                      <li class="nav-item">
+                      <a href="" class="nav-link" target="_blank">Blog</a>
+                      </li>
+                      <li class="nav-item">
+                      <a href="" class="nav-link" target="_blank">License</a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
       </div>
-    <!-- end Overviwe page -->
-    <!-- test system page -->
-      <div class="col-md-6 mb-5 mb-lg-0">
-        <div class="card card-lift--hover shadow border-0">
-          <a href="get_taggs.html" title="Use System">
-            <img src="{{url_for('static', filename='assets/img/theme/profile.jpg')}}" class="card-img">
-          </a>
-        </div>
-      </div>
-      <!-- end test system page -->
-    </div>
+      <!-- end contact section -->
+    </footer>
   </div>
-{% endblock content2 %}
+{% endblock wrapper %}
