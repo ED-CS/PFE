@@ -1,6 +1,6 @@
 import os
 from flask import Flask, render_template, url_for, redirect, session, flash, request
-from forms import GetTagsForm
+from forms import GetTagsForm, LoginForm, RegistrationForm
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -51,6 +51,17 @@ def get_detail_result():
     #form = GetTagsForm()
     file_filename = session.get('filename', None)
     return render_template('get_detail_result.html', title='Detail Of Test Result', file_filename=file_filename)
+
+@app.route("/login")
+def login():
+    form = LoginForm()
+    return render_template('login.html', title='Login', form=form)
+
+@app.route("/register")
+def register():
+    form = RegistrationForm()
+    return render_template('register.html', title='Register', form=form)
+
 
 
 

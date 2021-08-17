@@ -26,7 +26,7 @@
         <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light py-2">
             <div class="container">
                 <!-- logo AA-->
-                <a class="navbar-brand mr-lg-5" href="./index.html">
+                <a class="navbar-brand mr-lg-5" href="{{ url_for('home') }}">
                     <div class="col-lg-6 text-lg-center btn-wrapper">
                     <img src="{{url_for('static', filename='assets/img/pages/logo3.png')}}">
                     <span calss="lead">Soft</span>
@@ -37,22 +37,23 @@
                 </button>
                 <div class="navbar-collapse collapse" id="navbar_global">
                     <div class="navbar-collapse-header">
-                    <div class="row">
-                        <!-- logo AA-->
-                        <div class="col-6 collapse-brand">  
-                        <a href="./index.html">
-                            <img src="{{url_for('static', filename='assets/img/pages/logo3.png')}}">
-                            <span calss="lead">Soft</span>
-                        </a>
-                        </div>
-                        <div class="col-6 collapse-close">
-                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
-                            <span></span>
-                            <span></span>
-                        </button>
+                        <div class="row">
+                            <!-- logo AA-->
+                            <div class="col-6 collapse-brand">  
+                                <a href="{{ url_for('home') }}">
+                                    <img src="{{url_for('static', filename='assets/img/pages/logo3.png')}}">
+                                    <span calss="lead">Soft</span>
+                                </a>
+                            </div>
+                            <div class="col-6 collapse-close">
+                                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span></span>
+                                    <span></span>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    </div>
+                    {% if title != 'Login' and title != 'Register'%}
                     <!-- liste of models-->
                     <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
                         <li class="nav-item dropdown">
@@ -106,12 +107,12 @@
                     <!-- mak a if statment with authontification condition to hide or show the tow button -->
                     <ul class="navbar-nav align-items-lg-center ml-lg-auto"> 
                         <li class="nav-item d-none d-lg-block">
-                            <a href="#" target="_blank" class="btn btn-outline-primary">
+                            <a href="{{ url_for('login') }}" class="btn btn-outline-primary">
                                 <span class="nav-link-inner--text">SIGN UP</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="btn btn-outline-primary" href="#" target="_blank">
+                            <a class="btn btn-outline-primary" href="{{ url_for('login') }}" >
                                 <span class="nav-link-inner--text">SIGN IN</span>
                             </a>
                         </li>       
@@ -140,7 +141,29 @@
                                 </a>
                             </div>
                         </li>     
-                    </ul>                
+                    </ul> 
+                    {% else %}
+                    <ul class="navbar-nav align-items-lg-center ml-lg-auto">
+                        <li class="nav-item">
+                            <a class="btn btn-outline-primary" href="{{ url_for('home') }}" >
+                                <span class="nav-link-inner--text"><i class="fa fa-home" aria-hidden="true"></i>  Go Home</span>
+                            </a>
+                        </li>
+                        {% if title == 'register'%}
+                        <li class="nav-item">
+                            <a class="btn btn-outline-primary" href="{{ url_for('login') }}">
+                                <span class="nav-link-inner--text"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</span>                         
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="btn btn-outline-primary" href="{{ url_for('register') }}">
+                                <span class="nav-link-inner--text"><i class="fa fa-user-plus" aria-hidden="true"></i> Register</span>                         
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    {% endif %}
                 </div>
             </div>
         </nav>
