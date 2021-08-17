@@ -33,13 +33,10 @@
                               <form method="POST" action="" enctype="multipart/form-data">
                                 {{ form.hidden_tag() }}                                   
                                 <div class="input-group mb-3">
-                                  <!--<input type="file" class="form-control" id="inputGroupFile02">-->
-                                  <!--<label class="input-group-text" for="inputGroupFile02">Upload</label>-->
                                   {{ form.audio.label(class="input-group-text")}}
                                   {{ form.audio(class="form-control")}}
                                 </div>                           
                                 <div class="text-center">
-                                  <!--<button type="submit" class="btn btn-outline-secondary btn-round"><i class="ni ni-tag">  GET TAGS</i></button>-->
                                   {{ form.submit(class="btn btn-outline-secondary btn-round") }}
                                 </div>
                               </form>

@@ -20,6 +20,7 @@ def home():
         filename= secure_filename(uploaded_file.filename)
         uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], filename))
         file_path = os.path.join(app.config['UPLOAD_PATH'], filename)
+        session['filename'] = filename
         session['file_path'] = file_path
 
         return redirect(url_for('quick_test_result', filename=filename))
@@ -41,8 +42,17 @@ def quick_test():
 
 @app.route("/quick_test_result" )
 def quick_test_result():
+    # audio processing and get tags in this route 
     file_path = session.get('file_path', None)
     return render_template('quick_test_result.html', title='Quick Test Result', file_path=file_path)
+
+@app.route("/get_detail_result", methods=['GET', 'POST'])
+def get_detail_result():
+    #form = GetTagsForm()
+    file_filename = session.get('filename', None)
+    return render_template('get_detail_result.html', title='Detail Of Test Result', file_filename=file_filename)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
