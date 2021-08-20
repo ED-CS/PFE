@@ -55,6 +55,8 @@ def get_detail_result():
 @app.route("/login")
 def login():
     form = LoginForm()
+    if form.validate_on_submit():
+        flash('You') # for later
     return render_template('login.html', title='Login', form=form)
 
 @app.route("/register")
