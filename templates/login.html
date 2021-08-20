@@ -1,107 +1,107 @@
 {% extends "layout.html" %}
 {% block wrapper %}
-<div class="wrapper">
-  <section class="section section-shaped section-lg">
-    <div class="shape shape-style-1 bg-gradient-default">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-    <div class="container pt-lg-7">
-      <div class="row justify-content-center">
-        <div class="col-lg-5">
-          <div class="card bg-secondary shadow border-0">
-            <div class="card-body px-lg-5 py-lg-5">
-              <div class="text-center text-muted mb-4">
-                <small>SIGN IN</small>
+  <div class="wrapper">
+    <section class="section section-shaped section-lg">
+      <div class="shape shape-style-1 bg-gradient-default">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="container pt-lg-7">
+        <div class="row justify-content-center">
+          <div class="col-lg-5">
+            <div class="card bg-secondary shadow border-0">
+              <div class="card-body px-lg-5 py-lg-5">
+                <div class="text-center text-muted mb-4">
+                  <small>SIGN IN</small>
+                </div>
+                <form method="POST">
+                  {{ form.hidden_tag() }}
+                  <div class="form-group mb-3"><!-- email field -->               
+                    <div class="input-group input-group-alternative">      
+                      {{ form.email.label(class="input-group-text")}}
+                      {{ form.email(class="form-control")}}
+                    </div>
+                  </div>
+                  <div class="form-group focused"><!-- password field -->
+                    <div class="input-group input-group-alternative">
+                      {{ form.password.label(class="input-group-text")}}
+                      {{ form.password(class="form-control")}}
+                    </div>
+                  </div>
+                  <div class="custom-control custom-control-alternative custom-checkbox">
+                    <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
+                    <label class="custom-control-label" for=" customCheckLogin"><span>Remember me</span></label>
+                  </div>
+                  <div class="text-center"> <!-- submit -->
+                    <button type="submit" class="btn btn-primary my-4"><i class="fa fa-sign-in" aria-hidden="true"></i> login</button>
+                  </div>
+                </form>
               </div>
-              <form method="POST">
-                {{ form.hidden_tag() }}
-                <div class="form-group mb-3"><!-- email field -->               
-                  <div class="input-group input-group-alternative">      
-                    {{ form.email.label(class="input-group-text")}}
-                    {{ form.email(class="form-control")}}
-                  </div>
-                </div>
-                <div class="form-group focused"><!-- password field -->
-                  <div class="input-group input-group-alternative">
-                    {{ form.password.label(class="input-group-text")}}
-                    {{ form.password(class="form-control")}}
-                  </div>
-                </div>
-                <div class="custom-control custom-control-alternative custom-checkbox">
-                  <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
-                  <label class="custom-control-label" for=" customCheckLogin"><span>Remember me</span></label>
-                </div>
-                <div class="text-center"> <!-- submit -->
-                  <button type="submit" class="btn btn-primary my-4"><i class="fa fa-sign-in" aria-hidden="true"></i> login</button>
-                </div>
-              </form>
             </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-6">
-              <a href="#" class="text-light"><small>Forgot password?</small></a>
-            </div>
-            <div class="col-6 text-right">
-              <a href="{{ url_for('register') }}" class="text-light"><small>Create new account</small></a>
+            <div class="row mt-3">
+              <div class="col-6">
+                <a href="#" class="text-light"><small>Forgot password?</small></a>
+              </div>
+              <div class="col-6 text-right">
+                <a href="{{ url_for('register') }}" class="text-light"><small>Create new account</small></a>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-  <footer class="footer">
-    <!-- end tow main pages -->
-    <!-- contact section -->
-    <div class="container">
-        <div class="row row-grid align-items-center my-md">
-            <div class="col-lg-6">
-                <h3 class="text-primary font-weight-light mb-2">Thank you .....</h3>
-                </div>
-                    <div class="col-lg-6 text-lg-center btn-wrapper">
-                    <button target="_blank" href="https://twitter.com/creativetim" rel="nofollow" class="btn btn-icon-only btn-twitter rounded-circle" data-toggle="tooltip" data-original-title="Follow us">
-                        <span class="btn-inner--icon"><i class="fa fa-twitter"></i></span>
-                    </button>
-                    <button target="_blank" href="https://www.facebook.com/CreativeTim/" rel="nofollow" class="btn-icon-only rounded-circle btn btn-facebook" data-toggle="tooltip" data-original-title="Like us">
-                        <span class="btn-inner--icon"><i class="fab fa-facebook"></i></span>
-                    </button>
-                    <button target="_blank" href="https://instagrame.com/creativetim" rel="nofollow" class="btn btn-icon-only btn-instagram rounded-circle" data-toggle="tooltip" data-original-title="Follow us">
-                        <span class="btn-inner--icon"><i class="fa fa-instagram"></i></span>
-                    </button>
-                    <button target="_blank" href="https://github.com/creativetimofficial" rel="nofollow" class="btn btn-icon-only btn-github rounded-circle" data-toggle="tooltip" data-original-title="Star on Github">
-                        <span class="btn-inner--icon"><i class="fa fa-github"></i></span>
-                    </button>
-                </div>
-            </div>
-        <hr>
-        <div class="row align-items-center justify-content-md-between">
-            <div class="col-md-6">
-                <div class="copyright">
-                    &copy; 2021 <a href="" target="_blank">Creative Tim</a>.
-                </div>
-            </div>
-            <div class="col-md-6">
-                <ul class="nav nav-footer justify-content-end">
-                    <li class="nav-item">
-                    <a href="" class="nav-link" target="_blank">About Us</a>
-                    </li>
-                    <li class="nav-item">
-                    <a href="" class="nav-link" target="_blank">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                    <a href="" class="nav-link" target="_blank">License</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!-- end contact section -->
-  </footer>
-</div>
+    </section>
+    <footer class="footer">
+      <!-- end tow main pages -->
+      <!-- contact section -->
+      <div class="container">
+          <div class="row row-grid align-items-center my-md">
+              <div class="col-lg-6">
+                  <h3 class="text-primary font-weight-light mb-2">Thank you .....</h3>
+                  </div>
+                      <div class="col-lg-6 text-lg-center btn-wrapper">
+                      <button target="_blank" href="https://twitter.com/creativetim" rel="nofollow" class="btn btn-icon-only btn-twitter rounded-circle" data-toggle="tooltip" data-original-title="Follow us">
+                          <span class="btn-inner--icon"><i class="fa fa-twitter"></i></span>
+                      </button>
+                      <button target="_blank" href="https://www.facebook.com/CreativeTim/" rel="nofollow" class="btn-icon-only rounded-circle btn btn-facebook" data-toggle="tooltip" data-original-title="Like us">
+                          <span class="btn-inner--icon"><i class="fab fa-facebook"></i></span>
+                      </button>
+                      <button target="_blank" href="https://instagrame.com/creativetim" rel="nofollow" class="btn btn-icon-only btn-instagram rounded-circle" data-toggle="tooltip" data-original-title="Follow us">
+                          <span class="btn-inner--icon"><i class="fa fa-instagram"></i></span>
+                      </button>
+                      <button target="_blank" href="https://github.com/creativetimofficial" rel="nofollow" class="btn btn-icon-only btn-github rounded-circle" data-toggle="tooltip" data-original-title="Star on Github">
+                          <span class="btn-inner--icon"><i class="fa fa-github"></i></span>
+                      </button>
+                  </div>
+              </div>
+          <hr>
+          <div class="row align-items-center justify-content-md-between">
+              <div class="col-md-6">
+                  <div class="copyright">
+                      &copy; 2021 <a href="" target="_blank">Creative Tim</a>.
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <ul class="nav nav-footer justify-content-end">
+                      <li class="nav-item">
+                      <a href="" class="nav-link" target="_blank">About Us</a>
+                      </li>
+                      <li class="nav-item">
+                      <a href="" class="nav-link" target="_blank">Blog</a>
+                      </li>
+                      <li class="nav-item">
+                      <a href="" class="nav-link" target="_blank">License</a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+      <!-- end contact section -->
+    </footer>
+  </div>
 {% endblock wrapper %}
