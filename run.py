@@ -5,7 +5,7 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
-UPLOAD_PATH="uploade file/"
+UPLOAD_PATH="uploaded file/"
 
 app.config['SECRET_KEY']='6ea28f4cb420aa71a93faf8acf4c37bd'
 app.config['UPLOAD_PATH'] = UPLOAD_PATH
@@ -49,8 +49,7 @@ def quick_test_result():
 @app.route("/get_detail_result", methods=['GET', 'POST'])
 def get_detail_result():
     #form = GetTagsForm()
-    file_filename = session.get('filename', None)
-    return render_template('get_detail_result.html', title='Detail Of Test Result', file_filename=file_filename)
+    return render_template('get_detail_result.html', title='Detail Of Test Result')
 
 @app.route("/login")
 def login():

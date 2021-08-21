@@ -5,14 +5,40 @@
         <section class="page-header">
             <!-- Circles background -->
             <img class="bg-image" src="{{url_for('static', filename='assets/img/pages/ed2.jpg')}}" style="width: 100%;">
-          </section>
-
-        <section class="page-header">
         </section>
-
         <section class="section bg-secondary">
+            <div class="container mt-9">
+              <div class="card card-profile shadow mt--300">
+                <div class="px-4">
+                  <div class="text-center mt-5">
+                    <div class="content-center text-center">
+                      <div class="col-md-8 ml-auto mr-auto">
+                        <div class="brand">
+                          <h1 class="title">
+                            List Of Tags
+                          </h1>
+                            <h3 class="description">path of audio file: {{ file_path }}</h3>
+                            <h3 class="description">
+                                <audio controls>
+                                    <source src="file:///D:/pfe dataset/test/" type="audio/wav" />
+                                </audio>
+                            </h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mt-5 py-5 border-top text-center">
+                    <div class="row justify-content-center">
+                      <div class="col-lg-9">
+                        <p>advencet test, to get more about test result consult "test detail" you most be authantificat to see more detail about tags and categories .</p>
+                        <a href="{{url_for('home')}}" class="btn btn-primary btn-round btn-lg">HOME</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
         </section>
-
         <footer class="footer">
             <!-- end tow main pages -->
             <!-- contact section -->
