@@ -19,6 +19,8 @@
         <link href="static/assets/css/font-awesome.css" rel="stylesheet" />
         <!-- CSS Files -->
         <link href="static/assets/css/argon-design-system.css?v=1.2.2" rel="stylesheet" />
+        <!-- <link href="static/assets/css/loading.css" rel="stylesheet" /> -->
+
     </head>
 
     <body>
@@ -81,15 +83,6 @@
                                         <p class="description d-none d-md-inline-block mb-0">Unsupervised Learning, It made from onley noisy data.</p>
                                     </div>
                                     </a>
-                                    <a href="model3.html" class="media d-flex align-items-center">
-                                    <div class="icon icon-shape bg-gradient-warning rounded-circle text-white">
-                                        <i class="ni ni-ui-04"></i>
-                                    </div>
-                                    <div class="media-body ml-3">
-                                        <h5 class="heading text-warning mb-md-1">Model 3</h6>
-                                        <p class="description d-none d-md-inline-block mb-0">Semi Supervised Learning, It made from both curated and noisy data.</p>
-                                    </div>
-                                    </a>
                                 </div>
                             </div>
                         </li>
@@ -104,19 +97,6 @@
                             </li>
                         </ul>
                     {% endif%}
-                    <!-- mak a if statment with authontification condition to hide or show the tow button -->
-                    <ul class="navbar-nav align-items-lg-center ml-lg-auto"> 
-                        <li class="nav-item d-none d-lg-block">
-                            <a href="{{ url_for('login') }}" class="btn btn-outline-primary">
-                                <span class="nav-link-inner--text">SIGN UP</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn btn-outline-primary" href="{{ url_for('login') }}" >
-                                <span class="nav-link-inner--text">SIGN IN</span>
-                            </a>
-                        </li>       
-                    </ul>
                     <!-- in case where a user has logged in -->
                     <ul class="navbar-nav align-items-lg-center ml-lg-auto"> 
                         <li class="nav-item dropdown no-arrow">
@@ -126,6 +106,14 @@
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fa fa-sign-out fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    SIGN UP
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fa fa-sign-in fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    SIGN IN
+                                </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
@@ -175,5 +163,11 @@
         <script src="static/assets/js/core/popper.min.js" type="text/javascript"></script>
         <script src="static/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
         <script src="static/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+        <!-- loading page -->
+        <!-- <script>
+            $(window).on("load",function(){
+              $(".loader-wrapper").fadeOut("slow");
+            });
+        </script> -->
     </body>
 </html>

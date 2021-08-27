@@ -17,35 +17,10 @@
                 <h1 class="display-1 text-white text-center">Semi Supervised Learning
                   <span class="text-white">Multi-Label Audio Tagging</span> 
                 </h1>
-                <p class="lead text-white text-center">Audio Taggin System. It's Free and Open Source.</p>    
+                <p class="">Audio Taggin System. It's Free and Open Source.</p>    
                   <!-- quick test button section -->         
-                <div class="btn-wrapper mt-5 text-center">
-                  <button type="button" class="btn btn-lg btn-white btn-icon mb-3 mb-sm-0" data-toggle="modal" data-target="#modal-form">Quick Test</button>
-                  <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" style="display: none;" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-                      <div class="modal-content">
-                        <div class="modal-body p-0">
-                          <div class="card bg-secondary shadow border-0 mb-0">      
-                            <div class="card-body px-lg-5 py-lg-5">
-                              <div class="text-center text-muted mb-4">
-                                <small>Chose you'r file location.</small>
-                              </div>
-                              <form method="POST" action="" enctype="multipart/form-data">
-                                {{ form.hidden_tag() }}                                   
-                                <div class="input-group mb-3">
-                                  {{ form.audio.label(class="input-group-text")}}
-                                  {{ form.audio(class="form-control")}}
-                                </div>                           
-                                <div class="text-center">
-                                  {{ form.submit(class="btn btn-outline-secondary btn-round") }}
-                                </div>
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <div class="mt-8 text-center">
+                  <a href=" {{ url_for('quick_test_result') }}" class ="mt-5 btn btn-secondary btn-round"><b>Quick Test</b></a>
                 </div>           
                 <!-- end quick test button section -->
               </div>       

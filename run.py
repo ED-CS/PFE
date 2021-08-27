@@ -31,43 +31,39 @@ app.config['LOAD_DIR_MODELS'] = LOAD_DIR_MODELS
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/home", methods=['GET', 'POST'])
 def home():
-    
+
+    return render_template('index.html', title='Home') 
+
+@app.route("/quick_test_result", methods=['GET', 'POST'])
+def quick_test_result():
+    lis=[]
     form = GetTagsForm()
-    if request.method == 'POST':
+
+    if form.validate_on_submit():
+        
         wav_file = request.files['audio']
         wavefile_name = SaveWavFile(wav_file)
-        session['wavefile_name'] = wavefile_name
+        WavFile_path, NpyFile_path, filename = getFilePaths(wavefile_name=wavefile_name)
+        labels_path = app.config['LABELS_PATH']
+        LOAD_DIR_MODELS = app.config['LOAD_DIR_MODELS']
 
-        return redirect(url_for('quick_test_result'))
+        # audio processing and get tags
+        dic_predict, df_predict = list_tags(LOAD_DIR_MODELS=LOAD_DIR_MODELS, output_dir=NpyFile_path, 
+                                            input_dir=WavFile_path, filename=filename, labels_path=labels_path)
+        lis.append(df_predict)
+        lis.append(dic_predict)
+        lis.append(wavefile_name)
+
+        # print(dic_predict)
+        # print(df_predict)
         
-    return render_template('index.html', title='Home', form=form)
-
-@app.route("/quick_test_result" )
-def quick_test_result():
-
-    wavefile_name = session.get('wavefile_name', None)
-    WavFile_path, NpyFile_path, filename = getFilePaths(wavefile_name=wavefile_name)
-    labels_path = app.config['LABELS_PATH']
-    LOAD_DIR_MODELS = app.config['LOAD_DIR_MODELS']
-
-    # audio processing and get tags
-    dic_predict, df_predict = list_tags(LOAD_DIR_MODELS=LOAD_DIR_MODELS, output_dir=NpyFile_path, 
-                                        input_dir=WavFile_path, filename=filename, labels_path=labels_path)
-    print(dic_predict)
-    print(df_predict)
-      
-
-
-
-
+        redirect(url_for('quick_test_result'))
 
     # delete  wav and npy files
     # _ = DeleteFile(file_path=WavFile_path)
     # _ = DeleteFile(file_path=NpyFile_path)
     # get tags in this route 
-
-    
-    return render_template('quick_test_result.html', title='Quick Test Result', filename=wavefile_name , dic_predict=dic_predict)
+    return render_template('quick_test_result.html', title='Quick Test Result', result=lis, form=form)
 
 @app.route("/get_detail_result", methods=['GET', 'POST'])
 def get_detail_result():
