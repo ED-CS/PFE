@@ -75,12 +75,10 @@ def load_data(path_npy, NUM_CLASS):
 def get_prediction_dic(df, columnName):
                 listLabes = []
                 listPredectionValue = []
-                for i in range(79,0,-1):
-                    if df.iloc[i][columnName]*100 >= 50:
-                        listLabes.append(df.iloc[i]['Dataset'])
-                        listPredectionValue.append(df.iloc[i][columnName])
-                    else:
-                        break
+                for i in range(79,76,-1):
+                    listLabes.append(df.iloc[i]['Dataset'])
+                    listPredectionValue.append(df.iloc[i][columnName])
+                    
                 systemPredection =	{
                     "systemName": columnName,
                     "tagList": listLabes,

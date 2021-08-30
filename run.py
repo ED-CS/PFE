@@ -54,8 +54,8 @@ def quick_test_result():
         lis.append(dic_predict)
         lis.append(wavefile_name)
 
-        # print(dic_predict)
-        # print(df_predict)
+        print(dic_predict)
+        print(df_predict)
         
         redirect(url_for('quick_test_result'))
 

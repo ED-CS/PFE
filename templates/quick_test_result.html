@@ -26,9 +26,9 @@
                     {{ form.submit(class="btn btn-outline-secondary btn-round") }}
                   </div>
                 </form>
-                <!-- <div class="loader-wrapper">
+                <div class="loader-wrapper">
                   <span class="loader"><span class="loader-inner"></span></span>
-                </div> -->
+                </div>
               </div>
             {% else %}
             <!-- result section -->
@@ -50,13 +50,10 @@
                     <tr>
                       {% for system in result[1] %}
                         <td class="text-center">
-                          <ul class="nav nav-footer justify-content-end">                                    
+                          <ul class="text-center">                                   
                             {% for tag in system["tagList"] %}
-                              <hr>
-                              <li class="nav-item text-center">
-                                <span class="nav-link-inner--text">
+                              <li> 
                                   {{ tag }}<b>/</b>
-                                </span>
                               </li> 
                             {% endfor %}
                           </ul>
@@ -129,5 +126,5 @@
       </div>
       <!-- end contact section -->
     </footer>
-  </div>
+  </div> 
 {% endblock wrapper %}
