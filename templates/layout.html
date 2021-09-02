@@ -20,12 +20,13 @@
         <!-- CSS Files -->
         <link href="static/assets/css/argon-design-system.css?v=1.2.2" rel="stylesheet" />
         <link href="static/assets/css/loading.css" rel="stylesheet" /> 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="static/assets/js/core/jquery.min.js"></script>
         
         <script>
             $(window).on("load",function(){
                 $(".loader-wrapper").fadeOut("slow");
-            });     
+            });
+                 
             $(document).ready(function(){
                 $("#submit").click(function(){
                     $(".loader-wrapper").fadeIn("slow");

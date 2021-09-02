@@ -17,7 +17,7 @@
                 <h1 class="display-1 text-white text-center">Semi Supervised Learning
                   <span class="text-white">Multi-Label Audio Tagging</span> 
                 </h1>
-                <p class="">Audio Taggin System. It's Free and Open Source.</p>    
+                <p class="text-white text-center">Audio Taggin System. It's Free and Open Source.</p>    
                   <!-- quick test button section -->         
                 <div class="mt-8 text-center">
                   <a href=" {{ url_for('quick_test_result') }}" class ="mt-5 btn btn-secondary btn-round"><b>Quick Test</b></a>
@@ -39,62 +39,129 @@
       <!-- end Full Page Intro -->
     </div>
     <!-- end quick audio tagging section-->
-    <!-- end page header -->
-    <div  class="view shadow p-7 mb-2 bg-body" style="background-image: url('static/assets/img/pages/ed10.jpg');  background-repeat: no-repeat; background-size: cover; background-position: center center;"><!-- class="section"-->
-      <div class="row justify-content-around">
-        <div class="col-lg-5 mb-5 mb-lg-0 text-center">
-          <h1 class="font-weight-light">ResNet</h1>
-          <p class="lead mt-4">about a resnet 34 architecture.</p>
-          <a href="https://demos.creative-tim.com/argon-design-system/docs/components/carousel.html" class="btn btn-white mt-4">See all components</a>
+
+    <!-- technique used -->
+    <div class="section features-6">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 mx-auto text-center">
+            <span class="badge badge-primary badge-pill mb-3">Insight</span>
+            <h3 class="display-3">List of all technique</h3>
+            <p class="lead">The list of all technique used . For data augmentation. For audio processing.</p>
+          </div>
+        </div>
+        <div class="row align-items-center">
+          <div class="col-lg-4">
+            <div class="info info-horizontal info-hover-primary">
+              <div class="description pl-4">
+                <h5 class="title">For Developers</h5>
+                <p>The time is now for it to be okay to be great. People in this world shun people for being great. For being a bright color. For standing out. But the time is now.</p>
+                <a href="#" class="text-info">Learn more</a>
+              </div>
+            </div>
+            <div class="info info-horizontal info-hover-primary mt-5">
+              <div class="description pl-4">
+                <h5 class="title">For Designers</h5>
+                <p>There’s nothing I really wanted to do in life that I wasn’t able to get good at. That’s my skill. I’m not really specifically talented at anything except for the ability to learn.</p>
+                <a href="#" class="text-info">Learn more</a>
+              </div>
+            </div>
+            <div class="info info-horizontal info-hover-primary mt-5">
+              <div class="description pl-4">
+                <h5 class="title">For Beginners</h5>
+                <p>That’s what I do. That’s what I’m here for. Don’t be afraid to be wrong because you can’t learn anything from a compliment. If everything I did failed - which it doesn't.</p>
+                <a href="#" class="text-info">Learn more</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8 col-10 mx-md-auto">
+            <div  class="view shadow p-7 mb-2 bg-body" style="background-image: url('static/assets/img/pages/ed10.jpg');  background-repeat: no-repeat; background-size: cover; background-position: center center;"><!-- class="section"-->
+              <div class="row justify-content-around">
+                <div class="col-lg-5 mb-5 mb-lg-0 text-center">
+                  <h1 class="font-weight-light">ResNet</h1>
+                  <p class="lead mt-4">about a resnet 34 architecture.</p>
+                  <a href="" class="btn btn-white mt-4">Get Information</a>
+                </div>
+              </div>
+            </div>
+            <!-- <img class="ml-lg-5" src="../assets/img/ill/ill.png" width="100%"> -->
+          </div>
         </div>
       </div>
     </div>
-    <footer class="footer has-cards">
-      <div class="container container-lg">
-          <div class="row">
-          <!-- Overviwe page -->
-            <div class="col-md-6 mb-5 mb-md-0">
-              <div class="card card-lift--hover shadow border-0">
-                <a href="Overviwe.html" title="Overviwe of audio tagging system">
-                  <img src="{{url_for('static', filename='/assets/img/theme/landing.jpg')}}" class="card-img">
-                </a>
-              </div>
-            </div>
-          <!-- end Overviwe page -->
-          <!-- test system page -->
-            <div class="col-md-6 mb-5 mb-lg-0">
-              <div class="card card-lift--hover shadow border-0">
-                <a href="get_taggs.html" title="Use System">
-                  <img src="{{url_for('static', filename='assets/img/theme/profile.jpg')}}" class="card-img">
-                </a>
-              </div>
-            </div>
-            <!-- end test system page -->
+    <!-- technique uesd end -->
+ 
+    <!-- end page header -->
+    <!-- Advanced use of the system -->
+    <div class="section features-6">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 mx-auto text-center">
+            <h3 class="display-3">List of all technique</h3>
+            <p class="lead">The list of all technique used . For data augmentation. For audio processing.</p>
           </div>
         </div>
+        <div class="row align-items-center">
+          
+        </div>
+      </div>
+    </div>
+    
+    <footer class="footer has-cards">
+      <div class="container container-lg ">
+        <div class="row">
+          <!-- Overviwe page -->
+          <div class="col-md-4 mb-5 mb-md-0">
+            <div class="card card-lift--hover shadow border-0">
+              <a href="Overviwe.html" title="Overviwe of audio tagging system">
+                <img src="{{url_for('static', filename='/assets/img/theme/landing.jpg')}}" class="card-img">
+              </a>
+            </div>
+          </div>
+          <!-- end Overviwe page -->
+          <!-- featur extraction page -->
+          <div class="col-md-4 mb-5 mb-md-0">
+            <div class="card card-lift--hover shadow border-0">
+              <a href="featur_extraction.html" title="featur extraction">
+                <img src="{{url_for('static', filename='/assets/img/theme/landing.jpg')}}" class="card-img">
+              </a>
+            </div>
+          </div>
+          <!-- featur extraction page -->
+          <!-- test system page -->
+          <div class="col-md-4 mb-5 mb-lg-0">
+            <div class="card card-lift--hover shadow border-0">
+              <a href="get_taggs.html" title="Use System">
+                <img src="{{url_for('static', filename='assets/img/theme/profile.jpg')}}" class="card-img">
+              </a>
+            </div>
+          </div>
+          <!-- end test system page -->
+        </div>
+      </div>
       <!-- end tow main pages -->
       <!-- contact section -->
       <div class="container">
-          <div class="row row-grid align-items-center my-md">
-              <div class="col-lg-6">
-                  <h3 class="text-primary font-weight-light mb-2">Thank you .....</h3>
-                  </div>
-                      <div class="col-lg-6 text-lg-center btn-wrapper">
-                      <button target="_blank" href="https://twitter.com/creativetim" rel="nofollow" class="btn btn-icon-only btn-twitter rounded-circle" data-toggle="tooltip" data-original-title="Follow us">
-                          <span class="btn-inner--icon"><i class="fa fa-twitter"></i></span>
-                      </button>
-                      <button target="_blank" href="https://www.facebook.com/CreativeTim/" rel="nofollow" class="btn-icon-only rounded-circle btn btn-facebook" data-toggle="tooltip" data-original-title="Like us">
-                          <span class="btn-inner--icon"><i class="fab fa-facebook"></i></span>
-                      </button>
-                      <button target="_blank" href="https://instagrame.com/creativetim" rel="nofollow" class="btn btn-icon-only btn-instagram rounded-circle" data-toggle="tooltip" data-original-title="Follow us">
-                          <span class="btn-inner--icon"><i class="fa fa-instagram"></i></span>
-                      </button>
-                      <button target="_blank" href="https://github.com/creativetimofficial" rel="nofollow" class="btn btn-icon-only btn-github rounded-circle" data-toggle="tooltip" data-original-title="Star on Github">
-                          <span class="btn-inner--icon"><i class="fa fa-github"></i></span>
-                      </button>
-                  </div>
-              </div>
-          <hr>
+        <div class="row row-grid align-items-center my-md">
+          <div class="col-lg-6">
+            <h3 class="text-primary font-weight-light mb-2">Thank you .....</h3>
+          </div>
+          <div class="col-lg-6 text-lg-center btn-wrapper">
+            <button target="_blank" href="https://twitter.com/creativetim" rel="nofollow" class="btn btn-icon-only btn-twitter rounded-circle" data-toggle="tooltip" data-original-title="Follow us">
+                <span class="btn-inner--icon"><i class="fa fa-twitter"></i></span>
+            </button>
+            <button target="_blank" href="https://www.facebook.com/CreativeTim/" rel="nofollow" class="btn-icon-only rounded-circle btn btn-facebook" data-toggle="tooltip" data-original-title="Like us">
+                <span class="btn-inner--icon"><i class="fab fa-facebook"></i></span>
+            </button>
+            <button target="_blank" href="https://instagrame.com/creativetim" rel="nofollow" class="btn btn-icon-only btn-instagram rounded-circle" data-toggle="tooltip" data-original-title="Follow us">
+                <span class="btn-inner--icon"><i class="fa fa-instagram"></i></span>
+            </button>
+            <button target="_blank" href="https://github.com/creativetimofficial" rel="nofollow" class="btn btn-icon-only btn-github rounded-circle" data-toggle="tooltip" data-original-title="Star on Github">
+                <span class="btn-inner--icon"><i class="fa fa-github"></i></span>
+            </button>
+          </div>
+        </div>
+        <hr>
           <div class="row align-items-center justify-content-md-between">
               <div class="col-md-6">
                   <div class="copyright">
@@ -102,17 +169,17 @@
                   </div>
               </div>
               <div class="col-md-6">
-                  <ul class="nav nav-footer justify-content-end">
-                      <li class="nav-item">
-                      <a href="" class="nav-link" target="_blank">About Us</a>
-                      </li>
-                      <li class="nav-item">
-                      <a href="" class="nav-link" target="_blank">Blog</a>
-                      </li>
-                      <li class="nav-item">
-                      <a href="" class="nav-link" target="_blank">License</a>
-                      </li>
-                  </ul>
+                <ul class="nav nav-footer justify-content-end">
+                  <li class="nav-item">
+                    <a href="" class="nav-link" target="_blank">About Us</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="" class="nav-link" target="_blank">Blog</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="" class="nav-link" target="_blank">License</a>
+                  </li>
+                </ul>
               </div>
           </div>
       </div>

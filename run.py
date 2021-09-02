@@ -40,7 +40,7 @@ def quick_test_result():
     form = GetTagsForm()
 
     if form.validate_on_submit():
-        
+
         wav_file = request.files['audio']
         wavefile_name = SaveWavFile(wav_file)
         WavFile_path, NpyFile_path, filename = getFilePaths(wavefile_name=wavefile_name)
@@ -48,15 +48,13 @@ def quick_test_result():
         LOAD_DIR_MODELS = app.config['LOAD_DIR_MODELS']
 
         # audio processing and get tags
+        
         dic_predict, df_predict = list_tags(LOAD_DIR_MODELS=LOAD_DIR_MODELS, output_dir=NpyFile_path, 
-                                            input_dir=WavFile_path, filename=filename, labels_path=labels_path)
+                                            input_dir=WavFile_path, filename=filename, labels_path=labels_path, nb_tags=int(form.nb_tags.data))
         lis.append(df_predict)
         lis.append(dic_predict)
         lis.append(wavefile_name)
 
-        print(dic_predict)
-        print(df_predict)
-        
         redirect(url_for('quick_test_result'))
 
     # delete  wav and npy files

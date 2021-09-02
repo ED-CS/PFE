@@ -29,7 +29,7 @@ def convert(filename, input_dir, output_dir, SAMPLE_RATE, N_MELS, HOP_LENGTH, N_
         np.save("{}/{}.npy".format(output_dir, filename), data)
         return data
 
-def prediction(val_loader, model, NUM_CLASS, LOAD_DIR_MODELS, df_predict, labels_path, sysName, dic_predict):
+def prediction(val_loader, model, NUM_CLASS, LOAD_DIR_MODELS, df_predict, labels_path, sysName, dic_predict, nb_tags):
     sigmoid = torch.nn.Sigmoid().cuda()
 
     # switch to eval mode
@@ -58,7 +58,7 @@ def prediction(val_loader, model, NUM_CLASS, LOAD_DIR_MODELS, df_predict, labels
     dd[sysName] = preds[0]
     dd = dd.sort_values(by=sysName, ascending=True)
 
-    systemPredection = get_prediction_dic(df=dd, columnName=sysName)
+    systemPredection = get_prediction_dic(df=dd, columnName=sysName, nb_tags=nb_tags)
     dic_predict.append(systemPredection)
 
 
@@ -72,22 +72,23 @@ def load_data(path_npy, NUM_CLASS):
                             )
     return valid_loader 
     
-def get_prediction_dic(df, columnName):
-                listLabes = []
-                listPredectionValue = []
-                for i in range(79,76,-1):
-                    listLabes.append(df.iloc[i]['Dataset'])
-                    listPredectionValue.append(df.iloc[i][columnName])
+def get_prediction_dic(df, columnName, nb_tags):
+    listLabes = []
+    listPredectionValue = []
+    nb_tags = 79 - nb_tags
+    for i in range(79, nb_tags,-1):
+        listLabes.append(df.iloc[i]['Dataset'])
+        listPredectionValue.append(df.iloc[i][columnName])
                     
-                systemPredection =	{
-                    "systemName": columnName,
-                    "tagList": listLabes,
-                    "valueList": listPredectionValue
-                }
-                return systemPredection
+    systemPredection =	{
+        "systemName": columnName,
+        "tagList": listLabes,
+        "valueList": listPredectionValue
+    }
+    return systemPredection
 
 
-def list_tags(LOAD_DIR_MODELS, output_dir, input_dir, filename, labels_path):
+def list_tags(LOAD_DIR_MODELS, output_dir, input_dir, filename, labels_path, nb_tags):
 
     # parameters
     SAMPLE_RATE = 44100
@@ -115,17 +116,16 @@ def list_tags(LOAD_DIR_MODELS, output_dir, input_dir, filename, labels_path):
     dic_predict = []
     
     for pat in range(5): 
-        if pat <=2 : 
+        """ if pat <=2 : 
             sysName = 'System {}'.format(pat)
             prediction(val_loader=valid_loader, model=model, NUM_CLASS=NUM_CLASS,
                         LOAD_DIR_MODELS=LOAD_DIR_MODELS[pat], df_predict=df_predict, labels_path=labels_path, 
-                        sysName=sysName, dic_predict=dic_predict)
-        
-        else:
-            sysName = 'System {}'.format(pat)
-            prediction(val_loader=valid_loader, model=model, NUM_CLASS=NUM_CLASS,
-                        LOAD_DIR_MODELS=LOAD_DIR_MODELS[pat], df_predict=df_predict, labels_path=labels_path, 
-                        sysName=sysName, dic_predict=dic_predict)
+                        sysName=sysName, dic_predict=dic_predict, nb_tags=nb_tags)
+        else: """
+        sysName = 'System {}'.format(pat)
+        prediction(val_loader=valid_loader, model=model, NUM_CLASS=NUM_CLASS,
+                    LOAD_DIR_MODELS=LOAD_DIR_MODELS[pat], df_predict=df_predict, labels_path=labels_path, 
+                    sysName=sysName, dic_predict=dic_predict,nb_tags=nb_tags)
       
     return dic_predict, df_predict
 
@@ -144,7 +144,6 @@ def main():
     input_dir ='D:/pfe dataset/test/4c9d698d.wav'
     filename= '4c9d698d'
     labels_path = 'C:/Users/mahrati_ed/Desktop/route predection backend/labels.csv'
-
     dic_predict, df_predict = list_tags(LOAD_DIR_MODELS=LOAD_DIR_MODELS, output_dir=output_dir, 
                                         input_dir=input_dir, filename=filename, labels_path=labels_path)
 
