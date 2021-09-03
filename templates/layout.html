@@ -26,12 +26,17 @@
             $(window).on("load",function(){
                 $(".loader-wrapper").fadeOut("slow");
             });
-                 
             $(document).ready(function(){
                 $("#submit").click(function(){
-                    $(".loader-wrapper").fadeIn("slow");
+                    var cont  = document.getElementById("audio")
+                    if(cont.files.length>0){
+                        // alert(cont.files.length)
+                        $(".loader-wrapper").fadeIn("slow");
+                    } 
+                    // $(".loader-wrapper").fadeIn("slow");
                 });   
-            });      
+            });
+                  
         </script>
 
     </head>
