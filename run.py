@@ -54,6 +54,10 @@ def quick_test_result():
         lis.append(df_predict)
         lis.append(dic_predict)
         lis.append(wavefile_name)
+        """ session["name"]=lis[2]
+        session["system"] =lis[1]["systemName"]
+        session["prediction"] = lis[1][]
+        session["value"] = lis[1][] """
 
         redirect(url_for('quick_test_result'))
 
@@ -65,8 +69,10 @@ def quick_test_result():
 
 @app.route("/get_detail_result", methods=['GET', 'POST'])
 def get_detail_result():
-    #form = GetTagsForm()
-    return render_template('get_detail_result.html', title='Detail Of Test Result')
+    name = session["name"]
+    """ prediction = session["prediction"]
+    value = session["value"] """
+    return render_template('get_detail_result.html', title='Detail Of Test Result', name=name)
 
 @app.route("/login")
 def login():
@@ -75,13 +81,16 @@ def login():
         flash('You') # for later
     return render_template('login.html', title='Login', form=form)
 
-@app.route("/register")
+@app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
+    if form.validate_on_submit():
+        flash('Account created for {}!'.format(form.username.data), 'success')
+        return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
 
 
-
+# definition of function
 def DeleteFile(path):
     if os.path.exists(path):
         os.remove(path)
@@ -99,18 +108,6 @@ def getFilePaths(wavefile_name):
     NpyFile_path = app.config['NPY_PATH']
     return wavfile_path, NpyFile_path, filename
 
-
-'''
-@app.route("/get_ClipPath", methods=['GET', 'POST'])
-def quick_test():
-    form = GetTagsForm()
-    if form.validate_on_submit():
-        clip_path = form.clip.data
-        session['clip_path'] = clip_path
-        return redirect(url_for('quick_test_result', title='Quick Test Result'))
-
-    return render_template('index.html', title='Get Audio Path', form=form)
-'''
 
 if __name__ == '__main__':
     app.run(debug=True)

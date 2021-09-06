@@ -18,47 +18,59 @@
             <div class="card bg-secondary shadow border-0">
               <div class="card-body px-lg-5 py-lg-5">
                 <div class="text-center text-muted mb-4">
-                  <small>Or sign up with credentials</small>
+                  <small>sign up with credentials</small>
                 </div>
                 <form role="form">
-                  <div class="form-group"><!-- username -->
+                  {{ form.hidden_tag() }}
+                  <!-- username -->
+                  <div class="form-group">
                     <div class="input-group input-group-alternative mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                       </div>
-                      <input class="form-control" placeholder="Name" type="text">
+                      {{ form.username(class="form-control", placeholder="Name")}}
                     </div>
                   </div>
-                  <div class="form-group"> <!-- email -->
+                  <!-- email -->
+                  <div class="form-group"> 
                     <div class="input-group input-group-alternative mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                       </div>
-                      <input class="form-control" placeholder="Email" type="email">
+                      {{ form.email(class="form-control", placeholder="Email")}}
                     </div>
                   </div>
-                  <div class="form-group focused"> <!-- password -->
+                  <!-- password -->
+                  <div class="form-group focused"> 
                     <div class="input-group input-group-alternative">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                       </div>
-                      <input class="form-control" placeholder="Password" type="password">
+                      {{ form.password(class="form-control", placeholder="Password")}}
                     </div>
                   </div>
-                  <div class="form-group focused"> <!-- confirm password -->
+                  <!-- confirm password -->
+                  <div class="form-group focused"> 
                     <div class="input-group input-group-alternative">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                       </div>
-                      <input class="form-control" placeholder="Confirm Password" type="password">
-                      {{ form.confirm_password(class="form-control", palaceholder="Confirm Password")}}
+                      {{ form.confirm_password(class="form-control", placeholder="Confirm Password")}}
                     </div>
                   </div>
+                  <!-- submit button -->
                   <div class="text-center">
-                    <button type="submit" class="btn btn-primary mt-4">Create account</button>
+                    {{ form.submit(class="btn btn-primary mt-4")}}
                   </div>
                 </form>
+                <div class="text-center text-muted mb-2 mt-4">
+                  <small>
+                    Already Have An Account ? <a class="ml-2" href="{{ url_for('login') }}">Sign In</a>
+                  </small>
+                </div>
               </div>
+            <div>
+            </div>
             </div>
           </div>
         </div>
