@@ -1,5 +1,6 @@
 import os
 from flask import Flask, render_template, url_for, redirect, session, flash, request
+from numpy.lib.function_base import append
 from forms import GetTagsForm, LoginForm, RegistrationForm
 from werkzeug.utils import secure_filename
 
@@ -27,12 +28,15 @@ app.config['LOAD_DIR_MODELS'] = LOAD_DIR_MODELS
 
 
 
+#--------------------------------HOME ROUTE-------------------------------------------------------------------------
 
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/home", methods=['GET', 'POST'])
 def home():
 
     return render_template('index.html', title='Home') 
+
+#--------------------------------QUICK TEST ROUTE-------------------------------------------------------------------
 
 @app.route("/quick_test_result", methods=['GET', 'POST'])
 def quick_test_result():
@@ -51,13 +55,33 @@ def quick_test_result():
         
         dic_predict, df_predict = list_tags(LOAD_DIR_MODELS=LOAD_DIR_MODELS, output_dir=NpyFile_path, 
                                             input_dir=WavFile_path, filename=filename, labels_path=labels_path, nb_tags=int(form.nb_tags.data))
+
         lis.append(df_predict)
         lis.append(dic_predict)
         lis.append(wavefile_name)
-        """ session["name"]=lis[2]
-        session["system"] =lis[1]["systemName"]
-        session["prediction"] = lis[1][]
-        session["value"] = lis[1][] """
+ 
+        listAllTuple = []
+        sysname = ["System 0","System 1","System 2","System 3","System 4"]
+        print('-------------------------------------------------------------------------------')
+        for sys in sysname:
+  
+            listTuple =[] 
+            for i in range(79, 0, -1):
+                if df_predict.iloc[i][sys]*100 > 1:
+                    tup = (df_predict.iloc[i]['Dataset'], int(df_predict.iloc[i][sys]*100))
+                    listTuple.append(tup)
+                    
+ 
+            listAllTuple.append(listTuple)
+
+            
+
+        print(listAllTuple)
+        print('-------------------------------------------------------------------------------')
+
+        
+        session["tupleTagsValue"] = listAllTuple
+        session["file_name"] = wavefile_name
 
         redirect(url_for('quick_test_result'))
 
@@ -67,13 +91,16 @@ def quick_test_result():
     # get tags in this route 
     return render_template('quick_test_result.html', title='Quick Test Result', result=lis, form=form)
 
+#--------------------------------ADVENCED TEST ROUTE-------------------------------------------------------------------
+
 @app.route("/get_detail_result", methods=['GET', 'POST'])
 def get_detail_result():
-    name = session["name"]
-    """ prediction = session["prediction"]
-    value = session["value"] """
-    return render_template('get_detail_result.html', title='Detail Of Test Result', name=name)
+    file_name = session["file_name"]
+    tupleTagsValue = session["tupleTagsValue"]
+  
+    return render_template('get_detail_result.html', title='Detail Of Test Result', file_name=file_name, tupleTagsValue=tupleTagsValue)
 
+#--------------------------------LOGIN ROUTE-------------------------------------------------------------------
 @app.route("/login")
 def login():
     form = LoginForm()
@@ -81,6 +108,7 @@ def login():
         flash('You') # for later
     return render_template('login.html', title='Login', form=form)
 
+#--------------------------------REGISTRATION ROUTE-------------------------------------------------------------------
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -107,6 +135,10 @@ def getFilePaths(wavefile_name):
     filename = wavefile_name[:-4]
     NpyFile_path = app.config['NPY_PATH']
     return wavfile_path, NpyFile_path, filename
+
+# def sort_dataFrame_result(df):
+
+#     return sorted_result
 
 
 if __name__ == '__main__':
