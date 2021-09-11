@@ -23,6 +23,22 @@
                                     <source src="file:///D:/pfe dataset/test/" type="audio/wav" />
                                 </audio>
                             </h3>
+                            <!-- <canvas id="chart" width="600" height="400"></canvas> -->
+                            {% for sys in tupleTagsValue%}
+                            <canvas id="chart{{ sys[0][3]}}" width="600" height="400"></canvas>
+                            <canvas id="ch{{ sys[0][3]}}" width="600" height="400"></canvas>
+                            <table id="tab{{ sys[0][3]}}" style="display: none;">
+                              <tbody>
+                                {% for tup in sys %}
+                                  <tr>
+                                    <td>{{tup[0]}}</td>
+                                    <td>{{tup[1]}}</td>
+                                    <td>{{tup[2]}}</td>
+                                  </tr>
+                                {% endfor %}
+                              </tbody>
+                            </table>
+                            {% endfor %}
                         </div>
                       </div>
                     </div>
@@ -86,4 +102,56 @@
             <!-- end contact section -->
         </footer>
     </div>
+    <script>
+    for(s = 0; s < 5; s++){
+      // for one system
+      var tab = document.getElementById("tabSystem "+s);
+      var pieData = [];  
+      //gets rows of table
+      var rowLength = tab.rows.length;
+      //loops through rows    
+      for (i = 0; i < rowLength; i++){
+
+        //gets cells of current row  
+        var Cells = tab.rows.item(i).cells;  
+        var dic = {
+          value : parseFloat(Cells.item(0).innerHTML),
+          label : Cells.item(1).innerHTML,
+          color : Cells.item(2).innerHTML
+        }; 
+        pieData.push(dic);
+      };
+
+      // get bar chart canvas
+      var mychart = document.getElementById("chartSystem "+s).getContext("2d");
+      // draw pie chart
+      new Chart(document.getElementById("chartSystem "+s).getContext("2d")).Pie(pieData);
+
+      //test chart d
+    };  
+
+    {% for sys in range(4)%}
+        
+        const data = {
+          labels: {{ tags[sys] | safe}},
+          datasets: [{
+            label: {{ systems[sys] | safe}},
+            data: {{val_tags[sys] | safe}},
+            backgroundColor: {{clos[sys] | safe}},
+            hoverOffset: 4
+          }]
+        };
+        var = document.getElementById("chSystem "+s).getContext("2d");
+        var cher = new chart (cxt, {
+          type: 'doughnut',
+          data: data 
+         });
+
+      {% endfor %}
+  </script>
 {% endblock wrapper %}
+
+{% block chart %} 
+  
+
+{% endblock chart %}

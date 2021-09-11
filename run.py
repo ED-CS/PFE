@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, url_for, redirect, session, flash, request
+from flask import Flask, render_template, url_for, redirect, session, flash, request , Markup
 from numpy.lib.function_base import append
 from forms import GetTagsForm, LoginForm, RegistrationForm
 from werkzeug.utils import secure_filename
@@ -24,6 +24,8 @@ app.config['WAV_PATH'] = WAV_PATH
 app.config['NPY_PATH'] = NPY_PATH
 app.config['LABELS_PATH'] = LABELS_PATH
 app.config['LOAD_DIR_MODELS'] = LOAD_DIR_MODELS
+
+
 
 
 
@@ -62,27 +64,63 @@ def quick_test_result():
  
         listAllTuple = []
         sysname = ["System 0","System 1","System 2","System 3","System 4"]
+        colors = [
+        "#808080","#F7464A", "#46BFBD", "#FDB45C", "#FEDCBA",
+        "#ABCDEF", "#DDDDDD", "#ABCABC", "#4169E1",
+        "#C71585", "#FF4500", "#FEDCBA", "#46BFBD"]
+        val_tags=[]
+        tags = []
+        clos = []
         print('-------------------------------------------------------------------------------')
         for sys in sysname:
-  
-            listTuple =[] 
+
+            j = 1
+            listTuple =[]
+            tags_val = 0 
+            val = []
+            tag = []
+            col = []
             for i in range(79, 0, -1):
-                if df_predict.iloc[i][sys]*100 > 1:
-                    tup = (df_predict.iloc[i]['Dataset'], int(df_predict.iloc[i][sys]*100))
+
+                if df_predict.iloc[i][sys]*100 >= 10:
+                                  
+                    tup = (int(df_predict.iloc[i][sys]*100), df_predict.iloc[i]['Dataset'], colors[j], sys)
+                    #----------------------------------------------------------------------------------------
+                    val.append(int(df_predict.iloc[i][sys]*100))
+                    tag.append(df_predict.iloc[i]['Dataset'])
+                    col.append(colors[j])
+                    #----------------------------------------------------------------------------------------
                     listTuple.append(tup)
-                    
- 
+                    j+=1
+                    tags_val = tags_val + int(df_predict.iloc[i][sys]*100)
+
+            other_val = 100 - tags_val
+             #---------------------------------------------------------------------------------------- 
+            val_tags.append(val) 
+            tags.append(tag)  
+            clos.append(col)   
+             #----------------------------------------------------------------------------------------
+            listTuple.append((other_val,"Other_Tags",colors[0],sys))
             listAllTuple.append(listTuple)
 
-            
-
+         #----------------------------------------------------------------------------------------
+        print(val_tags)
+        print(tags)
+        print(clos)
+         #----------------------------------------------------------------------------------------
         print(listAllTuple)
         print('-------------------------------------------------------------------------------')
 
-        
+         #----------------------------------------------------------------------------------------
+        session["val_tags"] = val_tags
+        session["tags"] = tags
+        session["clos"] = clos
+        session["systems"] = sysname
+         #----------------------------------------------------------------------------------------
+
         session["tupleTagsValue"] = listAllTuple
         session["file_name"] = wavefile_name
-
+        print(listAllTuple)
         redirect(url_for('quick_test_result'))
 
     # delete  wav and npy files
@@ -97,8 +135,15 @@ def quick_test_result():
 def get_detail_result():
     file_name = session["file_name"]
     tupleTagsValue = session["tupleTagsValue"]
+
+    #----------------------------------------------------------------------------------------
+    val_tags = session["val_tags"] 
+    tags = session["tags"] 
+    clos = session["clos"]
+    systems = session["systems"] 
+    #----------------------------------------------------------------------------------------
   
-    return render_template('get_detail_result.html', title='Detail Of Test Result', file_name=file_name, tupleTagsValue=tupleTagsValue)
+    return render_template('get_detail_result.html', title='Detail Of Test Result', file_name=file_name, tupleTagsValue=tupleTagsValue, val_tags=val_tags,tags=tags,clos=clos,systems=systems)
 
 #--------------------------------LOGIN ROUTE-------------------------------------------------------------------
 @app.route("/login")
