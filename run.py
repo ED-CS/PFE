@@ -108,9 +108,7 @@ def quick_test_result():
         print(tags)
         print(clos)
          #----------------------------------------------------------------------------------------
-        print(listAllTuple)
         print('-------------------------------------------------------------------------------')
-
          #----------------------------------------------------------------------------------------
         session["val_tags"] = val_tags
         session["tags"] = tags
@@ -120,7 +118,6 @@ def quick_test_result():
 
         session["tupleTagsValue"] = listAllTuple
         session["file_name"] = wavefile_name
-        print(listAllTuple)
         redirect(url_for('quick_test_result'))
 
     # delete  wav and npy files
