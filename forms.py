@@ -16,6 +16,11 @@ class RegistrationForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Create account')
+class SystemOptionForm(FlaskForm):
+    system = SelectField('Select System', choices=[('System 0','System 0'),('System 1','System 1'),('System 2','System 2'),
+                                                    ('System 3','System 3'),('System 4','System 4')], validate_choice=True)
+    submit = SubmitField('get tags')
+    
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])

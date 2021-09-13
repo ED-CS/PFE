@@ -3,6 +3,7 @@ from flask import Flask, render_template, url_for, redirect, session, flash, req
 from numpy.lib.function_base import append
 from forms import GetTagsForm, LoginForm, RegistrationForm
 from werkzeug.utils import secure_filename
+import pandas as pd
 
 from predection_final_version import list_tags
 
@@ -12,6 +13,7 @@ app = Flask(__name__)
 WAV_PATH="wav_file/"
 NPY_PATH = "npy_file/"
 LABELS_PATH = 'C:/Users/mahrati_ed/Desktop/pfe_app/labels.csv'
+CATEGORY_PATH = 'C:/Users/mahrati_ed/Desktop/pfe_app/category.csv'
 LOAD_DIR_MODELS = ['C:/Users/mahrati_ed/Desktop/route predection backend/models/system_0',
                 'C:/Users/mahrati_ed/Desktop/route predection backend/models/system_1',
                 'C:/Users/mahrati_ed/Desktop/route predection backend/models/system_2mean',
@@ -23,11 +25,8 @@ app.config['SECRET_KEY']='6ea28f4cb420aa71a93faf8acf4c37bd'
 app.config['WAV_PATH'] = WAV_PATH
 app.config['NPY_PATH'] = NPY_PATH
 app.config['LABELS_PATH'] = LABELS_PATH
+app.config['CATEGORY_PATH'] = CATEGORY_PATH
 app.config['LOAD_DIR_MODELS'] = LOAD_DIR_MODELS
-
-
-
-
 
 
 #--------------------------------HOME ROUTE-------------------------------------------------------------------------
@@ -57,12 +56,10 @@ def quick_test_result():
         
         dic_predict, df_predict = list_tags(LOAD_DIR_MODELS=LOAD_DIR_MODELS, output_dir=NpyFile_path, 
                                             input_dir=WavFile_path, filename=filename, labels_path=labels_path, nb_tags=int(form.nb_tags.data))
-
         lis.append(df_predict)
         lis.append(dic_predict)
         lis.append(wavefile_name)
  
-        listAllTuple = []
         sysname = ["System 0","System 1","System 2","System 3","System 4"]
         colors = [
         "#808080","#F7464A", "#46BFBD", "#FDB45C", "#FEDCBA",
@@ -71,53 +68,19 @@ def quick_test_result():
         val_tags=[]
         tags = []
         clos = []
-        print('-------------------------------------------------------------------------------')
-        for sys in sysname:
 
-            j = 1
-            listTuple =[]
-            tags_val = 0 
-            val = []
-            tag = []
-            col = []
-            for i in range(79, 0, -1):
-
-                if df_predict.iloc[i][sys]*100 >= 10:
-                                  
-                    tup = (int(df_predict.iloc[i][sys]*100), df_predict.iloc[i]['Dataset'], colors[j], sys)
-                    #----------------------------------------------------------------------------------------
-                    val.append(int(df_predict.iloc[i][sys]*100))
-                    tag.append(df_predict.iloc[i]['Dataset'])
-                    col.append(colors[j])
-                    #----------------------------------------------------------------------------------------
-                    listTuple.append(tup)
-                    j+=1
-                    tags_val = tags_val + int(df_predict.iloc[i][sys]*100)
-
-            other_val = 100 - tags_val
-             #---------------------------------------------------------------------------------------- 
-            val_tags.append(val) 
-            tags.append(tag)  
-            clos.append(col)   
-             #----------------------------------------------------------------------------------------
-            listTuple.append((other_val,"Other_Tags",colors[0],sys))
-            listAllTuple.append(listTuple)
-
-         #----------------------------------------------------------------------------------------
-        print(val_tags)
-        print(tags)
-        print(clos)
-         #----------------------------------------------------------------------------------------
-        print('-------------------------------------------------------------------------------')
-         #----------------------------------------------------------------------------------------
+        
+         # get data for chart
+        val_tags, tags, clos = get_dataChart(df_predict=df_predict, sysname=sysname, colors=colors, val_tags=val_tags, tags=tags, clos=clos)
+        
+        
+         # save data chart in session
         session["val_tags"] = val_tags
         session["tags"] = tags
         session["clos"] = clos
         session["systems"] = sysname
-         #----------------------------------------------------------------------------------------
-
-        session["tupleTagsValue"] = listAllTuple
         session["file_name"] = wavefile_name
+        
         redirect(url_for('quick_test_result'))
 
     # delete  wav and npy files
@@ -131,16 +94,14 @@ def quick_test_result():
 @app.route("/get_detail_result", methods=['GET', 'POST'])
 def get_detail_result():
     file_name = session["file_name"]
-    tupleTagsValue = session["tupleTagsValue"]
-
-    #----------------------------------------------------------------------------------------
     val_tags = session["val_tags"] 
     tags = session["tags"] 
     clos = session["clos"]
     systems = session["systems"] 
-    #----------------------------------------------------------------------------------------
   
-    return render_template('get_detail_result.html', title='Detail Of Test Result', file_name=file_name, tupleTagsValue=tupleTagsValue, val_tags=val_tags,tags=tags,clos=clos,systems=systems)
+    return render_template('get_detail_result.html', title='Detail Of Test Result',
+                            file_name=file_name, val_tags=val_tags, tags=tags,
+                            clos=clos, systems=systems)
 
 #--------------------------------LOGIN ROUTE-------------------------------------------------------------------
 @app.route("/login")
@@ -177,6 +138,48 @@ def getFilePaths(wavefile_name):
     filename = wavefile_name[:-4]
     NpyFile_path = app.config['NPY_PATH']
     return wavfile_path, NpyFile_path, filename
+
+def get_category(tag_name):
+    df_category = pd.read_csv(app.config['CATEGORY_PATH'])
+    sub = tag_name
+    cat = df_category.loc[df_category["labels"] == sub, "category"]
+    return cat.values[0]
+
+def get_dataChart(df_predict,sysname, colors, val_tags, tags, clos): 
+            for sys in sysname:
+
+                j = 1          
+                tags_val = 0 
+                val = []
+                tag = []
+                col = []
+                for i in range(79, 0, -1): # get all tag > 10% predection
+
+                    if df_predict.iloc[i][sys]*100 >= 10:
+                                    
+                        #----------------------------------------------------------------------------------------
+                        val.append(int(df_predict.iloc[i][sys]*100))
+                        tag_name = df_predict.iloc[i]['Dataset']
+                        tag.append(tag_name)
+    
+                        col.append(colors[j])
+                        #----------------------------------------------------------------------------------------
+                        j+=1
+                        tags_val = tags_val + int(df_predict.iloc[i][sys]*100)
+                # add somme value and tag name also tag color of tgs < 10% 
+                other_val = 100 - tags_val
+                val.append(other_val)
+                tag.append("Other Tags")
+                col.append(colors[0])
+                
+                #---------------------------------------------------------------------------------------- 
+                val_tags.append(val) 
+                tags.append(tag)  
+                clos.append(col)  
+                #----------------------------------------------------------------------------------------
+
+            #----------------------------------------------------------------------------------------
+            return val_tags, tags, clos
 
 # def sort_dataFrame_result(df):
 
