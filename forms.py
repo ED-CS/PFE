@@ -16,12 +16,17 @@ class RegistrationForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Create account')
-class SystemOptionForm(FlaskForm):
-    system = SelectField('Select System', choices=[('System 0','System 0'),('System 1','System 1'),('System 2','System 2'),
-                                                    ('System 3','System 3'),('System 4','System 4')], validate_choice=True)
-    submit = SubmitField('get tags')
-    
 
+class SystemOptionForm(FlaskForm):
+
+    audio = FileField('Audio path', validators=[DataRequired(),FileAllowed(['wav'])])    
+
+    systemName = SelectField('Select System', choices=[('system 0','system 0'),('system 1','system 1'),('system 2','system 2'),
+                                                    ('system 3','system 3'),('system 4','system 4')], validate_choice=True)
+    systemWeight = SelectField('Select Weight', choices=[('320','320'),('384','384'),('448','448'),('512','512')], validate_choice=True)  
+
+    submit = SubmitField('get tags')
+  
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])

@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template, url_for, redirect, session, flash, request , Markup
 from numpy.lib.function_base import append
-from forms import GetTagsForm, LoginForm, RegistrationForm
+from forms import GetTagsForm, LoginForm, RegistrationForm, SystemOptionForm
 from werkzeug.utils import secure_filename
 import pandas as pd
 
@@ -14,11 +14,12 @@ WAV_PATH="wav_file/"
 NPY_PATH = "npy_file/"
 LABELS_PATH = 'C:/Users/mahrati_ed/Desktop/pfe_app/labels.csv'
 CATEGORY_PATH = 'C:/Users/mahrati_ed/Desktop/pfe_app/category.csv'
-LOAD_DIR_MODELS = ['C:/Users/mahrati_ed/Desktop/route predection backend/models/system_0',
-                'C:/Users/mahrati_ed/Desktop/route predection backend/models/system_1',
-                'C:/Users/mahrati_ed/Desktop/route predection backend/models/system_2mean',
-                'C:/Users/mahrati_ed/Desktop/route predection backend/models/system_3',
-                'C:/Users/mahrati_ed/Desktop/route predection backend/models/system_4']
+LOAD_DIR_MODELS = ['C:/Users/mahrati_ed/Desktop/route predection backend/models/system 0/weight_epoch_320.pth',
+                'C:/Users/mahrati_ed/Desktop/route predection backend/models/system 1/weight_epoch_320.pth',
+                'C:/Users/mahrati_ed/Desktop/route predection backend/models/system 2/weight_epoch_512.pth',
+                'C:/Users/mahrati_ed/Desktop/route predection backend/models/system 3/weight_epoch_512.pth',
+                'C:/Users/mahrati_ed/Desktop/route predection backend/models/system 4/weight_epoch_512.pth']
+SYSTEM_NAME = ["System 0","System 1","System 2","System 3","System 4"]
 
 
 app.config['SECRET_KEY']='6ea28f4cb420aa71a93faf8acf4c37bd'
@@ -27,6 +28,7 @@ app.config['NPY_PATH'] = NPY_PATH
 app.config['LABELS_PATH'] = LABELS_PATH
 app.config['CATEGORY_PATH'] = CATEGORY_PATH
 app.config['LOAD_DIR_MODELS'] = LOAD_DIR_MODELS
+app.config['SYSTEM_NAME'] = ["System 0","System 1","System 2","System 3","System 4"]
 
 
 #--------------------------------HOME ROUTE-------------------------------------------------------------------------
@@ -55,7 +57,8 @@ def quick_test_result():
         # audio processing and get tags
         
         dic_predict, df_predict = list_tags(LOAD_DIR_MODELS=LOAD_DIR_MODELS, output_dir=NpyFile_path, 
-                                            input_dir=WavFile_path, filename=filename, labels_path=labels_path, nb_tags=int(form.nb_tags.data))
+                                            input_dir=WavFile_path, filename=filename, labels_path=labels_path, 
+                                            nb_tags=int(form.nb_tags.data),systemsName=app.config['SYSTEM_NAME'])
         lis.append(df_predict)
         lis.append(dic_predict)
         lis.append(wavefile_name)
@@ -68,13 +71,11 @@ def quick_test_result():
         val_tags=[]
         tags = []
         clos = []
-
-        
-         # get data for chart
+       
+        # get data for chart
         val_tags, tags, clos = get_dataChart(df_predict=df_predict, sysname=sysname, colors=colors, val_tags=val_tags, tags=tags, clos=clos)
-        
-        
-         # save data chart in session
+           
+        # save data chart in session
         session["val_tags"] = val_tags
         session["tags"] = tags
         session["clos"] = clos
@@ -102,6 +103,61 @@ def get_detail_result():
     return render_template('get_detail_result.html', title='Detail Of Test Result',
                             file_name=file_name, val_tags=val_tags, tags=tags,
                             clos=clos, systems=systems)
+
+#--------------------------------FUll System - One System ROUTE-------------------------------------------------------------------
+
+@app.route("/FUllSystem_oneSystem", methods=['GET', 'POST'])
+def FUllSystem_oneSystem():
+    # get tags of audio file using one system with specific wight
+    # code for one system
+    form = SystemOptionForm()
+
+    if form.validate_on_submit():
+        systemName = form.systemName.data
+        systemWeight= int(form.systemWeight.data)
+        systemPath = ['C:/Users/mahrati_ed/Desktop/route predection backend/models/{}/weight_epoch_{}.pth'.format(systemName, systemWeight)]
+
+        wav_file = request.files['audio']
+        wavefile_name = SaveWavFile(wav_file)
+        WavFile_path, NpyFile_path, filename = getFilePaths(wavefile_name=wavefile_name)
+        labels_path = app.config['LABELS_PATH']
+       
+        dic_predict, df_predict = list_tags(LOAD_DIR_MODELS=systemPath, output_dir=NpyFile_path, 
+                                            input_dir=WavFile_path, filename=filename, labels_path=labels_path,
+                                            nb_tags=10, systemsName=[systemName])
+        
+        colors = [
+        "#808080","#F7464A", "#46BFBD", "#FDB45C", "#FEDCBA",
+        "#ABCDEF", "#DDDDDD", "#ABCABC", "#4169E1",
+        "#C71585", "#FF4500", "#FEDCBA", "#46BFBD"]
+        val_tags=[]
+        tags = []
+        clos = []
+
+        # get data for chart
+        val_tags, tags, clos = get_dataChart(df_predict=df_predict, sysname=[systemName], colors=colors, val_tags=val_tags, tags=tags, clos=clos)
+           
+        # save data chart in session
+        session["val_tags"] = val_tags
+        session["tags"] = tags
+        session["clos"] = clos
+        session["systems"] = [systemName]
+        session["file_name"] = wavefile_name
+        session["systemWeight"] = systemWeight
+        
+        return redirect(url_for('get_detail_result'))
+
+
+    return render_template('FUllSystem_oneSystem.html', form=form)
+
+#--------------------------------FUll System - All System ROUTE-------------------------------------------------------------------
+
+@app.route("/FUllSystem_allSystem", methods=['GET', 'POST'])
+def FUllSystem_allSystem():
+    # get tags of audio file using all system with specific wights
+    
+    #  code for all system 
+    return render_template('FUllSystem_allSystem.html')
 
 #--------------------------------LOGIN ROUTE-------------------------------------------------------------------
 @app.route("/login")

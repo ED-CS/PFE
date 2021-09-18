@@ -26,6 +26,7 @@ def convert(filename, input_dir, output_dir, SAMPLE_RATE, N_MELS, HOP_LENGTH, N_
             fmin=FMIN,
             fmax=FMAX,
         ).astype(np.float32)
+        
         np.save("{}/{}.npy".format(output_dir, filename), data)
         return data
     
@@ -42,8 +43,12 @@ def load_data(path_npy, NUM_CLASS):
 def get_prediction_dic(df, columnName, nb_tags):
     listLabes = []
     listPredectionValue = []
-
+    print('nb_tags from befor get_prediction_dic function {}'.format(nb_tags))
     nb_tags = 79 - nb_tags
+    print('nb_tags from after get_prediction_dic function {}'.format(nb_tags))
+    print(df)
+    print(columnName)
+
     for i in range(79, nb_tags,-1):
         listLabes.append(df.iloc[i]['Dataset'])
         listPredectionValue.append(df.iloc[i][columnName])
@@ -59,11 +64,11 @@ def get_prediction_dic(df, columnName, nb_tags):
 
 def prediction(val_loader, model, NUM_CLASS, LOAD_DIR_MODELS, df_predict, labels_path, sysName, dic_predict, nb_tags):
     sigmoid = torch.nn.Sigmoid().cuda()
-
+    print('nb_tags from prediction function {}'.format(nb_tags))
     # switch to eval mode
     model.eval()
 
-    model.load_state_dict(torch.load("{}/weight_epoch_320.pth".format(LOAD_DIR_MODELS), map_location='cpu'))
+    model.load_state_dict(torch.load("{}".format(LOAD_DIR_MODELS), map_location='cpu'))
     # validate
     preds = np.zeros([0, NUM_CLASS], np.float32)
 
@@ -89,7 +94,8 @@ def prediction(val_loader, model, NUM_CLASS, LOAD_DIR_MODELS, df_predict, labels
     systemPredection = get_prediction_dic(df=dd, columnName=sysName, nb_tags=nb_tags)
     dic_predict.append(systemPredection)
 
-def list_tags(LOAD_DIR_MODELS, output_dir, input_dir, filename, labels_path, nb_tags):
+def list_tags(LOAD_DIR_MODELS, output_dir, input_dir, filename, labels_path, nb_tags , systemsName):
+    print('nb_tags from list tags function {}'.format(nb_tags))
 
     # parameters
     SAMPLE_RATE = 44100
@@ -117,17 +123,17 @@ def list_tags(LOAD_DIR_MODELS, output_dir, input_dir, filename, labels_path, nb_
 
     # prediction processe 
     dic_predict = []
-    for pat in range(5): 
+    for pat in range(len(LOAD_DIR_MODELS)): 
         """ if pat <=2 : 
             sysName = 'System {}'.format(pat)
             prediction(val_loader=valid_loader, model=model, NUM_CLASS=NUM_CLASS,
                         LOAD_DIR_MODELS=LOAD_DIR_MODELS[pat], df_predict=df_predict, labels_path=labels_path, 
                         sysName=sysName, dic_predict=dic_predict, nb_tags=nb_tags)
         else: """
-        sysName = 'System {}'.format(pat)
+        # sysName = 'System {}'.format(pat)
         prediction(val_loader=valid_loader, model=model, NUM_CLASS=NUM_CLASS,
                     LOAD_DIR_MODELS=LOAD_DIR_MODELS[pat], df_predict=df_predict, labels_path=labels_path, 
-                    sysName=sysName, dic_predict=dic_predict, nb_tags=nb_tags)
+                    sysName=systemsName[pat], dic_predict=dic_predict, nb_tags=nb_tags)
       
     return dic_predict, df_predict
 
