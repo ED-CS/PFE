@@ -1,0 +1,46 @@
+ {% if form.email.errors %}
+                        {{ form.email(class="form-control form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.systemWeight(class="form-control form-control-lg") }}
+                    {% endif %}
+
+
+route
+
+if form.validate_on_submit():
+        systemName = form.systemName.data
+        systemWeight= int(form.systemWeight.data)
+        if (systemName=="" and systemWeight== 320) or (systemName=="" and systemWeight== 320):
+        
+            systemPath = ['C:/Users/mahrati_ed/Desktop/route predection backend/models/{}/weight_epoch_{}.pth'.format(systemName, systemWeight)]
+        
+            dic_predict, df_predict, wavefile_name = processing(wav_file = request.files['audio'], 
+                                                                LOAD_DIR_MODELS = systemPath,nb_tags=int(form.nb_tags.data), systemsName=[systemName])
+
+            print('--------------------------------------------------------')                                                    
+            print(df_predict)
+            print(systemName)
+            print(('--------------------------------------------------------'))
+            val_tags=[]
+            tags = []
+            clos = []
+            # get data for chart
+            val_tags, tags, clos = get_dataChart(df_predict=df_predict, sysname=[systemName])
+            
+            # save data chart in session
+            session["val_tags"] = val_tags
+            session["tags"] = tags
+            session["clos"] = clos
+            session["systems"] = [systemName]
+            session["file_name"] = wavefile_name
+            session["systemWeight"] = systemWeight
+            
+            return redirect(url_for('get_detail_result', systemType = 'One System Result'))
+        else
+            
+            flash("wieght System 0 or System 1 must be 320")

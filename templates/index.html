@@ -5,7 +5,7 @@
     <!-- quick audio tagging section-->
     <div class="page-header">
       <!-- Full Page Intro -->
-      <div class="view shadow p-3 mb-5 bg-body" style="background-image: url('static/assets/img/pages/ed2.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+      <div class="view shadow p-3 bg-body" style="background-image: url('static/assets/img/pages/ed2.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
         <!-- Mask & flexbox options-->
         <div class="mask rgba-gradient d-flex justify-content-center align-items-center">
           <!-- Content -->
@@ -20,17 +20,12 @@
                 <p class="text-white text-center">Audio Taggin System. It's Free and Open Source.</p>    
                   <!-- quick test button section -->         
                 <div class="mt-8 text-center">
-                  <a href=" {{ url_for('quick_test_result') }}" class ="mt-5 btn btn-secondary btn-round"><b>Quick Test</b></a>
+                  <a href=" {{ url_for('quick_test_result') }}" class ="mt-5 mb-4 btn btn-secondary btn-round"><b>Quick Test</b></a>
                 </div>           
                 <!-- end quick test button section -->
               </div>       
             </div>
             <!--Grid row-->
-            <!-- logo -->            
-            <div class="mt-8">
-              <small class="font-weight-bold mb-0 mr-2 text-white">Logo AA</small>                 
-            </div>          
-            <!-- end logo -->
           </div>
           <!-- Content -->
         </div>
@@ -125,7 +120,7 @@
           <!-- all systems test page -->
           <div class="col-md-6 mb-5 mb-lg-0">
             <div class="card card-lift--hover shadow border-0">
-              <a href="get_taggs.html" title="Full System">
+              <a href="{{url_for('FUllSystem_allSystem')}}" title="Full System">
                 <div style="background-image: url('static/assets/img/pages/ed10.jpg');  background-repeat: no-repeat; background-size: cover; background-position: center center;" class="view shadow p-6 bg-body">
                   <div class=" mb-2 text-center">
                     <h5 class="font-weight-light">All Systems </h5>

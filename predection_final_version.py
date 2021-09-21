@@ -137,26 +137,3 @@ def list_tags(LOAD_DIR_MODELS, output_dir, input_dir, filename, labels_path, nb_
       
     return dic_predict, df_predict
 
-#-------------------------------------------------------------------------------------------------------------- 
-
-# #--------------------------------------------------------------------------------------------------------------
-# def main():
-
-#     LOAD_DIR_MODELS = ['C:/Users/mahrati_ed/Desktop/route predection backend/models/system_0',
-#                 'C:/Users/mahrati_ed/Desktop/route predection backend/models/system_1',
-#                 'C:/Users/mahrati_ed/Desktop/route predection backend/models/system_2mean',
-#                 'C:/Users/mahrati_ed/Desktop/route predection backend/models/system_3',
-#                 'C:/Users/mahrati_ed/Desktop/route predection backend/models/system_4']
-   
-#     output_dir = 'C:/Users/mahrati_ed/Desktop/route predection backend/out'
-#     input_dir ='D:/pfe dataset/test/4c9d698d.wav'
-#     filename= '4c9d698d'
-#     labels_path = 'C:/Users/mahrati_ed/Desktop/route predection backend/labels.csv'
-#     dic_predict, df_predict = list_tags(LOAD_DIR_MODELS=LOAD_DIR_MODELS, output_dir=output_dir, 
-#                                         input_dir=input_dir, filename=filename, labels_path=labels_path)
-
-#     print(dic_predict)
-#     print(df_predict)
-
-# if __name__ == '__main__':
-#     main()

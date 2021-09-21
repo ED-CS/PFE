@@ -23,9 +23,19 @@ class SystemOptionForm(FlaskForm):
 
     systemName = SelectField('Select System', choices=[('system 0','system 0'),('system 1','system 1'),('system 2','system 2'),
                                                     ('system 3','system 3'),('system 4','system 4')], validate_choice=True)
-    systemWeight = SelectField('Select Weight', choices=[('320','320'),('384','384'),('448','448'),('512','512')], validate_choice=True)  
+    systemWeight = SelectField('Select Weight', choices=[('320','320'),('384','384'),('448','448'),('512','512')], validate_choice=True)
+
+    nb_tags = SelectField('nembers of tags', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5'),('6','6'),('7','7')], validate_choice=True) 
 
     submit = SubmitField('get tags')
+
+class SystemWieght(FlaskForm):
+    audio = FileField('Audio path', validators=[DataRequired(),FileAllowed(['wav'])])
+    sys2 =  SelectField('System 2 Weight', choices=[('320','320'),('384','384'),('448','448'),('512','512')], validate_choice=True)
+    sys3 =  SelectField('System 3 Weight', choices=[('320','320'),('384','384'),('448','448'),('512','512')], validate_choice=True)
+    sys4 =  SelectField('System 4 Weight', choices=[('320','320'),('384','384'),('448','448'),('512','512')], validate_choice=True)
+    nb_tags = SelectField('nembers of tags', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5'),('6','6'),('7','7')], validate_choice=True)
+    submit = SubmitField('get tags') 
   
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])

@@ -14,31 +14,56 @@
                 <h1 class="title">
                     One System
                 </h1>
+                <!-- file input -->
+                
                 <div class=" container mb-5">
                     <form method="POST" action="" enctype="multipart/form-data">
                         {{ form.hidden_tag() }}
-
-                        <!-- file input -->
                         <div class="form-group col-md-6  mt-4 mb-4 center">
                             {{ form.audio.label(class="custom-file-label")}}
                             {{ form.audio(class="custom-file-input")}}
                         </div>
-
-                        <div class="form-group col-md-6  mt-4 mb-4 center"> <!-- system name-->
-                            {{ form.systemName.label(class="text-center")}}
-                            {{ form.systemName(class="form-control text-center")}}
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tbody>
+                                    <tr class="text-center">
+                                        <td class="text-center">
+                                            <div class="form-group col-md-6  mt-4 mb-4 center"> <!-- system name-->
+                                                {{ form.systemName.label(class="text-center")}}
+                                                {{ form.systemName(class="form-control text-center")}}
+                                            </div>  
+                                        </td>                 
+                                    </tr>
+                                    <tr class="text-center">
+                                        <td class="text-center">
+                                            <div class="form-group col-md-6  mt-4 mb-4 center"> <!-- system wieght-->
+                                                {{ form.systemWeight.label(class="text-center")}}
+                                                <!-- {% if erreur != 'okay' %}
+                                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                        <span class="alert-inner--icon"><i class="ni ni-support-16"></i></span>
+                                                        <span class="alert-inner--text"><strong>Danger!</strong> {{ erreur }}!</span>
+                                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                {% endif %} -->
+                                                {{ form.systemWeight(class="form-control text-center")}}
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="form-group col-md-6  mt-4 mb-4 center">
+                                                {{ form.nb_tags.label(class="text-center")}}
+                                                {{ form.nb_tags(class="form-control text-center")}}
+                                            </div>                    
+                                        </td>                  
+                                    </tr>
+                                </tbody>
+                            </table>                 
                         </div>
-
-                        <div class="form-group col-md-2  mt-4 mb-4 center"> <!-- system wieght-->
-                            {{ form.systemWeight.label(class="text-center")}}
-                            {{ form.systemWeight(class="form-control text-center")}}
-                        </div>
-
                         <!-- get tags button -->
                         <div class="form-group col-md-2 mt-4 center">
                             {{ form.submit(class="btn btn-outline-secondary btn-round") }}
                         </div>
-
                     </form>
                     <!-- loading sections -->
                     <div class="loader-wrapper">

@@ -24,31 +24,57 @@
                     </audio>
                   </div>
                 </div>
-                <table class="table">
-                  <tbody>
-                    <tr>                              
-                      <td class="text-center">                                                          
-                        <canvas id="System 0" width="300" height="200"></canvas>
-                      </td>                            
-                      <td>                                                   
-                        <canvas id="System 1" width="300" height="200"></canvas>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>                                                                                 
-                        <canvas id="System 2" width="300" height="200"></canvas>
-                      </td>
-                      <td>                                                    
-                        <canvas id="System 3" width="300" height="200"></canvas>                  
-                      </td>
-                    </tr>
-                    <tr>
-                      <td >                                                                                  
-                        <canvas id="System 4" width="300" height="200"></canvas>                       
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>                                         
+                {% if title == "Quick Test Result" or title=="All System Result" %}
+                  <table class="table">
+                    <tbody>
+                      <tr>                              
+                        <td class="text-center">                                                          
+                          <canvas id="System 0" width="300" height="200"></canvas>
+                        </td>
+                                         -->
+                      </tr>
+                      <tr>
+                        <td>                                                   
+                          <canvas id="System 1" width="300" height="200"></canvas>
+                        </td>
+                        
+                      </tr>
+                      <tr>
+                        <td>                                                                                 
+                          <canvas id="System 2" width="300" height="200"></canvas>
+                        </td>
+                        
+                      </tr>
+                      <tr>
+                        <td>                                                    
+                          <canvas id="System 3" width="300" height="200"></canvas>                  
+                        </td>
+                        
+                      </tr>
+                      <tr>
+                        <td >                                                                                  
+                          <canvas id="System 4" width="300" height="200"></canvas>                       
+                        </td>
+                        
+                      </tr>
+                    </tbody>
+                  </table>
+                {% else %}
+                  <table class="table">
+                    <tbody>
+                      <tr>                              
+                        <td class="text-center">                                                          
+                          <canvas id="{{ systems[0] }}" width="300" height="200"></canvas>
+                        </td>                            
+                        <td class="text-center">
+                          <h3 class="heading-title text-warning mb-0"> model information </h3>
+                          <p class="lead">{{ systems[0] }}</p>
+                          <p class="lead">{{ systemWeight }}</p>                                                  
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                {% endif %}                                         
               </div>
             </div>
             <div class="py-5 border-top text-center">
@@ -110,27 +136,49 @@
       <!-- end contact section -->
     </footer>
   </div>
-  <script>
-    {% for sys in range( systems|length ) %}
-      var mychart = document.getElementById("System {{sys | safe}}").getContext('2d');
+  {% if title == "Quick Test Result" or title == "All System Result" %}
+    <script>
+      {% for sys in range( systems|length ) %}
+          var mychart = document.getElementById("System {{sys | safe}}").getContext('2d');
+          //test chart d
+          var ch = new Chart(mychart, {
+            type: "pie",
+            data: {
+              labels: {{tags[sys] | safe}}, //labels
+              datasets: [{
+                backgroundColor: {{clos[sys] | safe}}, //color
+                data: {{ val_tags[sys] | safe}}// data
+              }]
+            },
+            options: {
+              title: {
+                display: true,
+                text: "System {{ sys }}" //titel
+              }
+            }
+          });
+      {% endfor%}
+    </script>
+  {% else %}
+    <script>
+      var mychart = document.getElementById("{{systems[0] | safe}}").getContext('2d');
       //test chart d
       var ch = new Chart(mychart, {
         type: "pie",
         data: {
-          labels: {{tags[sys] | safe}}, //labels
+          labels: {{tags[0] | safe}}, //labels
           datasets: [{
-            backgroundColor: {{clos[sys] | safe}}, //color
-            data: {{ val_tags[sys] | safe}}// data
+            backgroundColor: {{clos[0] | safe}}, //color
+            data: {{ val_tags[0] | safe}}// data
           }]
         },
         options: {
           title: {
             display: true,
-            text: "System {{ sys }}" //titel
+            text: "{{ systems[0] }}" //titel
           }
         }
       });
-    {% endfor%}
- 
-  </script>
+    </script>
+  {% endif %}
 {% endblock wrapper %}

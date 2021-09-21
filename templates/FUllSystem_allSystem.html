@@ -9,90 +9,66 @@
     <section class="section bg-secondary">
       <div class="container mt-9">
         <div class="card card-profile shadow mt--300">
-          <div class="content-center text-center mt-5 px-4">
-
-            {% if not result %} <!-- test All System -->
-                
+            <div class="content-center text-center mt-5 px-4">
+                <!-- test one system  -->        
                 <h1 class="title">
-                    All System
+                    FUll System
                 </h1>
                 <div class=" container mb-5">
                     <form method="POST" action="" enctype="multipart/form-data">
-                    {{ form.hidden_tag() }}
-                    <!-- file input -->
-                    <div class="form-group col-md-6  mt-4 mb-4 center"> <!-- system name-->
-                        {{ form.audio.label(class="custom-file-label")}}
-                        {{ form.audio(class="custom-file-input")}}
-                    </div>
+                        {{ form.hidden_tag() }}
 
-                    <div class="form-group col-md-2  mt-4 mb-4 center"> <!-- system wieght-->
-                        {{ form.nb_tags.label(class="text-center")}}
-                        {{ form.nb_tags(class="form-control text-center")}}
-                    </div>
+                        <div class="form-group col-md-6  mt-4 mb-4 center"> <!-- file input -->
+                            {{ form.audio.label(class="custom-file-label")}}
+                            {{ form.audio(class="custom-file-input")}}
+                        </div>
 
-                    <!-- get tags button -->
-                    <div class="form-group col-md-2 mt-4 center">
-                        {{ form.submit(class="btn btn-outline-secondary btn-round") }}
-                    </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tbody>
+                                    <tr class="text-center">
+                                        <td class="text-center">
+                                            <div class="form-group col-md-6  mt-4 mb-4 center"> <!-- system 2-->
+                                                {{ form.sys2.label(class="text-center")}}
+                                                {{ form.sys2(class="form-control text-center")}}
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="form-group col-md-6  mt-4 mb-4 center"> <!-- system 3-->
+                                                {{ form.sys3.label(class="text-center")}}
+                                                {{ form.sys3(class="form-control text-center")}}
+                                            </div>
+                                        </td>                  
+                                    </tr>
+                                    <tr class="text-center">
+                                        <td class="text-center">
+                                            <div class="form-group col-md-6  mt-4 mb-4 center"> <!-- system 4-->
+                                                {{ form.sys4.label(class="text-center")}}
+                                                {{ form.sys4(class="form-control text-center")}}
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="form-group col-md-4  mt-4 mb-4 center"> <!-- nbr of tags-->
+                                                {{ form.nb_tags.label(class="text-center")}}
+                                                {{ form.nb_tags(class="form-control text-center")}}
+                                            </div>
+                                        </td>                  
+                                    </tr>
+                                </tbody>
+                            </table>                 
+                        </div>
+
+                        <div class="form-group col-md-2 mt-4 center"> <!-- submit button -->
+                            {{ form.submit(class="btn btn-outline-secondary btn-round") }}
+                        </div>
 
                     </form>
                     <!-- loading sections -->
                     <div class="loader-wrapper">
-                    <p><b>Pleas wait ...</b><br><span class="loader"><span class="loader-inner"></span></span></p>
-                    </div>
-                </div>          
-                        
-                <!-- <div class="mt-5 py-5 border-top text-center">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-9">
-                            <p>advencet test, to get more about test result consult "get detail" you most be authantificat to see more detail about tags and categories .</p>
-                            <a href="{{url_for('get_detail_result')}}" class="btn btn-primary btn-round btn-lg">Get Detail</a>
-                            <a href="{{url_for('quick_test_result')}}" class="btn btn-default btn-round btn-lg">try again</a>
-                        </div>
-                    </div>
-                </div> -->               
-
-            {% else %} <!-- result of all system-->
-
-                <div class="brand">
-                    <h1 class="title">
-                    List Of Tags
-                    </h1>
-                    <h3 class="description">Audio File: {{ file_name }}</h3>
-                    <div class="mb-4">
-                    <audio controls>
-                        <source src="D:/pfe dataset/test/{{ file_name }}" type="audio/wav" />
-                    </audio>
+                        <p><b>Pleas wait ...</b><br><span class="loader"><span class="loader-inner"></span></span></p>
                     </div>
                 </div>
-                <table class="table">
-                    <tbody>
-                    <tr>                              
-                        <td class="text-center">                                                          
-                        <canvas id="System 0" width="300" height="200"></canvas>
-                        </td>                            
-                        <td>                                                   
-                        <canvas id="System 1" width="300" height="200"></canvas>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>                                                                                 
-                        <canvas id="System 2" width="300" height="200"></canvas>
-                        </td>
-                        <td>                                                    
-                        <canvas id="System 3" width="300" height="200"></canvas>                  
-                        </td>
-                    </tr>
-                    <tr>
-                        <td >                                                                                  
-                        <canvas id="System 4" width="300" height="200"></canvas>                       
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>              
-
-            {% endif%}         
-          </div>
+            </div>
         </div>
       </div>
     </section>
@@ -145,26 +121,4 @@
       <!-- end contact section -->
     </footer>
   </div> 
-    <script>
-        {% for sys in range( systems|length ) %}
-            var mychart = document.getElementById("System {{sys | safe}}").getContext('2d');
-            //test chart d
-            var ch = new Chart(mychart, {
-                type: "pie",
-                data: {
-                labels: {{tags[sys] | safe}}, //labels
-                datasets: [{
-                    backgroundColor: {{clos[sys] | safe}}, //color
-                    data: {{ val_tags[sys] | safe}}// data
-                }]
-                },
-                options: {
-                title: {
-                    display: true,
-                    text: "System {{ sys }}" //titel
-                }
-                }
-            });
-        {% endfor%}  
-    </script>
 {% endblock wrapper %}
