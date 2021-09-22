@@ -5,7 +5,7 @@ from forms import GetTagsForm, LoginForm, RegistrationForm, SystemOptionForm, Sy
 from werkzeug.utils import secure_filename
 import pandas as pd
 
-from predection_final_version import list_tags
+from predection_final_version import list_tags, get_prediction_dic
 
 
 app = Flask(__name__)
@@ -22,7 +22,7 @@ app.config['LOAD_DIR_MODELS'] = ['C:/Users/mahrati_ed/Desktop/route predection b
                 'C:/Users/mahrati_ed/Desktop/route predection backend/models/system 4/weight_epoch_512.pth']
 app.config['SYSTEM_NAME'] = ["System 0","System 1","System 2","System 3","System 4"]
 app.config['SYSTEM_WIEGHT'] = [320,320,512,512,512]
-app.config['erreur']='okay'
+
 
 # definition of function
 def DeleteFile(path):
@@ -44,6 +44,8 @@ def getFilePaths(wavefile_name):
 
 def get_category(tag_name):
     df_category = pd.read_csv(app.config['CATEGORY_PATH'])
+    
+    
     sub = tag_name
     cat = df_category.loc[df_category["labels"] == sub, "category"]
     return cat.values[0]
@@ -102,14 +104,14 @@ def processing(wav_file, LOAD_DIR_MODELS, nb_tags, systemsName):
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/home", methods=['GET', 'POST'])
 def home():
-    app.config['erreur']='okay'
+   
     return render_template('index.html', title='Home') 
 
 #--------------------------------QUICK TEST ROUTE-------------------------------------------------------------------
 
 @app.route("/quick_test_result", methods=['GET', 'POST'])
 def quick_test_result():
-    app.config['erreur']='okay'
+    
     lis=[]
     form = GetTagsForm()
 
@@ -119,14 +121,40 @@ def quick_test_result():
         dic_predict, df_predict, wavefile_name = processing(wav_file = request.files['audio'], 
                                                             LOAD_DIR_MODELS = app.config['LOAD_DIR_MODELS'],nb_tags=int(form.nb_tags.data),
                                                             systemsName = app.config['SYSTEM_NAME'])
-        lis.append(df_predict)
-        lis.append(dic_predict)
-        lis.append(wavefile_name)
- 
+        # lis.append(df_predict)
+        # lis.append(dic_predict)
+        # lis.append(wavefile_name)
         
-        # get data for chart
+        #----------------ensembling system ------------------------------------------------------------------
+        df_predict["ensemble"] = df_predict.sum(axis=1)/5
+        df_ensemble = pd.read_csv(app.config['LABELS_PATH'])
+        df_ensemble["ensemble"] = df_predict["ensemble"]
+        df_ensemble = df_ensemble.sort_values(by="ensemble", ascending=True)
+       
+        # get data chart for ensembling system
+        val_esTags, esTags, esClos = get_dataChart(df_predict=df_ensemble, sysname=["ensemble"])
+        print(val_esTags)
+        print(esTags)
+        print(esClos)
+        # get data chart for ensembling system
+        ensemble_dataDict = get_prediction_dic(df=df_ensemble, columnName="ensemble", nb_tags = int(form.nb_tags.data))
+        print(ensemble_dataDict)
+        #----------------------------------------------------------------------------------------------------
+        dic_predict.append(ensemble_dataDict)
+        print(dic_predict)
+        lis.append(df_predict)
+        print(df_predict)
+        lis.append(dic_predict)
+        print(dic_predict)
+        lis.append(wavefile_name)
+        # get data for chart all systems
         val_tags, tags, clos = get_dataChart(df_predict=df_predict, sysname=app.config['SYSTEM_NAME'])
-           
+        val_tags.append(val_esTags[0])
+        print(val_tags) 
+        tags.append(esTags[0]) 
+        print(tags) 
+        clos.append(esClos[0])
+        print(clos)
         # save data chart in session
         session["val_tags"] = val_tags
         session["tags"] = tags
@@ -150,17 +178,10 @@ def FUllSystem_oneSystem():
     # get tags of audio file using one system with specific wight
     # code for one system
     form = SystemOptionForm()
-    app.config['erreur']='okay'
     if form.validate_on_submit():
         systemName = form.systemName.data
         systemWeight= int(form.systemWeight.data)
-        # if systemName =='System 0' and systemWeight != 320:
-        #     app.config['erreur'] = 'the wieght of SYstem 0 must be 320'
-        #     return redirect(url_for('FUllSystem_oneSystem'))
-        # elif systemName =='System 1' and systemWeight != 320:
-        #     app.config['erreur'] = 'the wieght of SYstem 1 must be 320'
-        #     return redirect(url_for('FUllSystem_oneSystem'))
-        # else:
+      
         systemPath = ['C:/Users/mahrati_ed/Desktop/route predection backend/models/{}/weight_epoch_{}.pth'.format(systemName, systemWeight)]
     
         dic_predict, df_predict, wavefile_name = processing(wav_file = request.files['audio'], 
@@ -226,7 +247,6 @@ def FUllSystem_allSystem():
 
 @app.route("/get_detail_result/<string:systemType>", methods=['GET', 'POST'])
 def get_detail_result(systemType):
-    app.config['erreur']='okay'
     file_name = session["file_name"]
     val_tags = session["val_tags"] 
     tags = session["tags"] 

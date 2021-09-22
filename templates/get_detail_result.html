@@ -27,35 +27,44 @@
                 {% if title == "Quick Test Result" or title=="All System Result" %}
                   <table class="table">
                     <tbody>
-                      <tr>                              
-                        <td class="text-center">                                                          
-                          <canvas id="System 0" width="300" height="200"></canvas>
-                        </td>
-                                         -->
-                      </tr>
-                      <tr>
-                        <td>                                                   
-                          <canvas id="System 1" width="300" height="200"></canvas>
-                        </td>
-                        
-                      </tr>
-                      <tr>
-                        <td>                                                                                 
-                          <canvas id="System 2" width="300" height="200"></canvas>
-                        </td>
-                        
-                      </tr>
-                      <tr>
-                        <td>                                                    
-                          <canvas id="System 3" width="300" height="200"></canvas>                  
-                        </td>
-                        
-                      </tr>
+                      {%for i in range(5)%}
+                        <tr>
+                          <td >                                                                                  
+                            <canvas id="System {{i}}" width="300" height="200"></canvas>                       
+                          </td>
+                          <td>
+                            <h3 class="heading-title text-warning mb-0"> model information </h3>
+                            <p class="lead">Name: {{ systems[i] }}</p>
+                            <p class="lead">Wieght: {{ systemWeight[i] }}</p>
+                            <p class="lead">Tags:</p>
+                            <ul>
+                              {% for tag in tags[i] %}     
+                                  <li>
+                                    {{ tag }}
+                                  </li>
+                              {% endfor %}
+                            </ul> 
+                          </td>
+                        </tr>
+                      {% endfor%}
                       <tr>
                         <td >                                                                                  
-                          <canvas id="System 4" width="300" height="200"></canvas>                       
+                          <canvas id="ensemble" width="300" height="200"></canvas>                       
                         </td>
-                        
+                        <td>
+                          <h3 class="heading-title text-warning mb-0"> model information </h3>
+                          <p class="lead"> 
+                            this is ensemble of all systems
+                          </p>
+                          <p class="lead">Tags:</p>
+                          <ul>
+                            {% for tag in tags[5] %}     
+                                <li>
+                                  {{ tag }}
+                                </li>
+                            {% endfor %}
+                          </ul>
+                      </td>
                       </tr>
                     </tbody>
                   </table>
@@ -68,8 +77,8 @@
                         </td>                            
                         <td class="text-center">
                           <h3 class="heading-title text-warning mb-0"> model information </h3>
-                          <p class="lead">{{ systems[0] }}</p>
-                          <p class="lead">{{ systemWeight }}</p>                                                  
+                          <p class="lead">Name: {{ systems[0] }}</p>
+                          <p class="lead">Wieght: {{ systemWeight }}</p>                                                  
                         </td>
                       </tr>
                     </tbody>
@@ -158,6 +167,24 @@
             }
           });
       {% endfor%}
+      // ensemble systems
+      var mychart = document.getElementById("ensemble").getContext('2d');
+      var ch = new Chart(mychart, {
+            type: "pie",
+            data: {
+              labels: {{tags[5] | safe}}, //labels
+              datasets: [{
+                backgroundColor: {{clos[5] | safe}}, //color
+                data: {{ val_tags[5] | safe}}// data
+              }]
+            },
+            options: {
+              title: {
+                display: true,
+                text: "Ensemble" //titel
+              }
+            }
+          });
     </script>
   {% else %}
     <script>
