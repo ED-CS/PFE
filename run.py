@@ -133,28 +133,20 @@ def quick_test_result():
        
         # get data chart for ensembling system
         val_esTags, esTags, esClos = get_dataChart(df_predict=df_ensemble, sysname=["ensemble"])
-        print(val_esTags)
-        print(esTags)
-        print(esClos)
         # get data chart for ensembling system
         ensemble_dataDict = get_prediction_dic(df=df_ensemble, columnName="ensemble", nb_tags = int(form.nb_tags.data))
-        print(ensemble_dataDict)
         #----------------------------------------------------------------------------------------------------
         dic_predict.append(ensemble_dataDict)
-        print(dic_predict)
         lis.append(df_predict)
         print(df_predict)
         lis.append(dic_predict)
-        print(dic_predict)
         lis.append(wavefile_name)
         # get data for chart all systems
         val_tags, tags, clos = get_dataChart(df_predict=df_predict, sysname=app.config['SYSTEM_NAME'])
+
         val_tags.append(val_esTags[0])
-        print(val_tags) 
         tags.append(esTags[0]) 
-        print(tags) 
         clos.append(esClos[0])
-        print(clos)
         # save data chart in session
         session["val_tags"] = val_tags
         session["tags"] = tags
@@ -187,10 +179,6 @@ def FUllSystem_oneSystem():
         dic_predict, df_predict, wavefile_name = processing(wav_file = request.files['audio'], 
                                                             LOAD_DIR_MODELS = systemPath,nb_tags=int(form.nb_tags.data), systemsName=[systemName])
 
-        print('--------------------------------------------------------')                                                    
-        print(df_predict)
-        print(systemName)
-        print(('--------------------------------------------------------'))
         val_tags=[]
         tags = []
         clos = []
@@ -226,11 +214,12 @@ def FUllSystem_allSystem():
             paths.append('C:/Users/mahrati_ed/Desktop/route predection backend/models/system {}/weight_epoch_{}.pth'.format(i, sysWieght[i]))
 
         dic_predict, df_predict, wavefile_name = processing(wav_file = request.files['audio'], LOAD_DIR_MODELS = paths ,
-                                                            nb_tags=int(form.nb_tags.data), systemsName=app.config['SYSTEM_NAME'])                                                    
-
+                                                            nb_tags=int(form.nb_tags.data), systemsName=app.config['SYSTEM_NAME'])  
+        # creat a ensemble column in df_predict
+        df_predict["ensemble"] = df_predict.sum(axis=1)/5                                                  
+        systemname = ["System 0","System 1","System 2","System 3","System 4", "ensemble"]
         # get data for chart
-        val_tags, tags, clos = get_dataChart(df_predict=df_predict, sysname=app.config['SYSTEM_NAME'])
-            
+        val_tags, tags, clos = get_dataChart(df_predict=df_predict, sysname=systemname)
         # save data chart in session
         session["val_tags"] = val_tags
         session["tags"] = tags
