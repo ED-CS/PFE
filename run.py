@@ -195,7 +195,7 @@ def FUllSystem_oneSystem():
         
         return redirect(url_for('get_detail_result', systemType = 'One System Result'))
 
-    return render_template('FUllSystem_oneSystem.html', form=form, title='One System', erreur= app.config['erreur'])
+    return render_template('FUllSystem_oneSystem.html', form=form, title='One System')
 
  #--------------------------------FUll System - All System ROUTE-------------------------------------------------------------------
 
