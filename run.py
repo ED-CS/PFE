@@ -65,7 +65,7 @@ def get_dataChart(df_predict,sysname):
         tag = []
         col = []
         for i in range(79, 0, -1): # get all tag > 10% predection
-            if df_predict.iloc[i][sys]*100 >= 10:             
+            if df_predict.iloc[i][sys]*100 >= 50:             
                 #----------------------------------------------------------------------------------------
                 val.append(int(df_predict.iloc[i][sys]*100))
                 tag_name = df_predict.iloc[i]['Dataset']
@@ -76,10 +76,10 @@ def get_dataChart(df_predict,sysname):
                 j+=1
                 tags_val = tags_val + int(df_predict.iloc[i][sys]*100)
         # add somme value and tag name also tag color of tgs < 10% 
-        other_val = 100 - tags_val
-        val.append(other_val)
-        tag.append("Other Tags")
-        col.append(colors[0])
+        # other_val = 100 - tags_val
+        # val.append(other_val)
+        # tag.append("Other Tags")
+        # col.append(colors[0])
         #---------------------------------------------------------------------------------------- 
         val_tags.append(val) 
         tags.append(tag)  
@@ -111,7 +111,7 @@ def home():
 
 @app.route("/quick_test_result", methods=['GET', 'POST'])
 def quick_test_result():
-    
+
     lis=[]
     form = GetTagsForm()
 
@@ -151,16 +151,12 @@ def quick_test_result():
         session["val_tags"] = val_tags
         session["tags"] = tags
         session["clos"] = clos
-        session["systems"] = app.config['SYSTEM_NAME']
+        session["systems"] = ["RestNet 1", "ResNet 2", "RestNet 1 + PL", "RestNet 1 + PL + MT", "RestNet 2 + PL + MT"] #app.config['SYSTEM_NAME']
         session["file_name"] = wavefile_name
         session["systemWeight"] = app.config['SYSTEM_WIEGHT']
         
         redirect(url_for('quick_test_result'))
-
-    # delete  wav and npy files
-    # _ = DeleteFile(file_path=WavFile_path)
-    # _ = DeleteFile(file_path=NpyFile_path)
-    # get tags in this route 
+ 
     return render_template('quick_test_result.html', title='Quick Test Result', result=lis, form=form)
 
 #--------------------------------FUll System - One System ROUTE-------------------------------------------------------------------
@@ -224,7 +220,7 @@ def FUllSystem_allSystem():
         session["val_tags"] = val_tags
         session["tags"] = tags
         session["clos"] = clos
-        session["systems"] = app.config['SYSTEM_NAME']
+        session["systems"] = ["RestNet 1", "ResNet 2", "RestNet 1 + PL", "RestNet 1 + PL + MT", "RestNet 2 + PL + MT"] #app.config['SYSTEM_NAME']
         session["file_name"] = wavefile_name
         session["systemWeight"] = sysWieght
         return redirect(url_for('get_detail_result', systemType = 'All System Result'))

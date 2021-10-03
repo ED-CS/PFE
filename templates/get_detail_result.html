@@ -145,6 +145,7 @@
       <!-- end contact section -->
     </footer>
   </div>
+  <!-- result of all systelm charts -->
   {% if title == "Quick Test Result" or title == "All System Result" %}
     <script>
       {% for sys in range( systems|length ) %}
@@ -187,6 +188,7 @@
           });
     </script>
   {% else %}
+    // result of one system chart
     <script>
       var mychart = document.getElementById("{{systems[0] | safe}}").getContext('2d');
       //test chart d
