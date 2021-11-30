@@ -13,13 +13,9 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '6ea28f4cb420aa71a93faf8acf4c37bd'
 app.config['WAV_PATH'] = "wav_file/"
 app.config['NPY_PATH'] = "npy_file/"
-app.config['LABELS_PATH'] = 'C:/Users/mahrati_ed/Desktop/pfe_app/labels.csv'
-app.config['CATEGORY_PATH'] = 'C:/Users/mahrati_ed/Desktop/pfe_app/category.csv'
-app.config['LOAD_DIR_MODELS'] = ['C:/Users/mahrati_ed/Desktop/route predection backend/models/system 0/weight_epoch_320.pth',
-                'C:/Users/mahrati_ed/Desktop/route predection backend/models/system 1/weight_epoch_320.pth',
-                'C:/Users/mahrati_ed/Desktop/route predection backend/models/system 2/weight_epoch_512.pth',
-                'C:/Users/mahrati_ed/Desktop/route predection backend/models/system 3/weight_epoch_512.pth',
-                'C:/Users/mahrati_ed/Desktop/route predection backend/models/system 4/weight_epoch_512.pth']
+app.config['LABELS_PATH'] = 'label path .csv'
+app.config['CATEGORY_PATH'] = 'category path .csv'
+app.config['LOAD_DIR_MODELS'] = ['list of model path ']
 app.config['SYSTEM_NAME'] = ["System 0","System 1","System 2","System 3","System 4"]
 app.config['SYSTEM_WIEGHT'] = [320,320,512,512,512]
 
